@@ -10,45 +10,12 @@ if __name__ == "__main__":
     # engine = create_engine('sqlite:///test.db', echo = True)
 
     # db = create_engine('sqlite:///.db')
-    # with open('Rate_edit.csv', newline='') as csvfile:
-    #     reader = csv.reader(csvfile)
-    #     next(reader)
-    #     for row in reader:
-    #         print(row[0])
-    #         if(row[0]=='2016'):
-    #             ls.append(row)
-    #         break
-
-    # with open('Rate_2016.csv','w',newline='') as result_file:
-    #     wr = csv.writer(result_file, dialect='excel',delimiter=',')
-    #     wr.writerows(ls)
-    #     # for item in ls:
-    #     wr.writerow(item)
-
-    # result_file.close()
 
     # ## data preprocessing on rate 2016
-
-    # with open('Rate_2016.csv', newline='') as csvfile:
-    #     reader = csv.reader(csvfile)
-    #     next(reader)
-    #     for row in reader:
-    # filename = 'C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate.csv'
-    # rate_2016_df = pd.read_csv(filename,keep_default_na= False)
-    # print("read")
-    # for i in range(2):
-    #     if i == 0 :
-    #         new_df = pd.DataFrame([rate_2016_df.iloc[0,:]])
-    #
-    #     else:
-    #         new_df = pd.DataFrame([rate_2016_df.iloc[10,:]])
-    #     with open('test.csv','a') as f:
-    #         header_title = False
-    #         if f.tell() == 0:
-    #             header_title = list(rate_2016_df.columns)
-    #         new_df.to_csv(f, mode='a', sep = ',',header=header_title, index=False)
-
-    # new_df = pd.DataFrame(columns = list(rate_2016_df.columns))
+    '''
+    Change filename variable as per the directory or filepath of your Rate file
+    '''
+    
     filename = 'C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate.csv'
     rate_2016_df = pd.read_csv(filename, keep_default_na=False)
     print("Read")
