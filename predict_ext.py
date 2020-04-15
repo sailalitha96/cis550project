@@ -21,13 +21,13 @@ def remove_null_dental_col(filename):
     dental_df = network_df["DentalOnlyPlan"]
     for i in range(len(dental_df)):
         if not len(dental_df[i]):
-            if "Dental" in network_df["NetworkName"][i]:
+            if "Dental" in network_df["NetworkName"][i] or "dental" in network_df["NetworkURL"] or"Dental" in network_df["NetworkURL"] or "dentist" in network_df["NetworkURL"] :
                 dental_df[i] = "Yes"
             else:
                 dental_df[i] = "No"
     network_df.to_csv(filename)
     print("Done")
-
+    #
 
 if __name__ == "__main__":
-    remove_null_dental_col('Network_sample.csv')
+    remove_null_dental_col('C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Network_PUF.csv')
