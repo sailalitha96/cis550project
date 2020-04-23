@@ -15,9 +15,10 @@ if __name__ == "__main__":
     '''
     Change filename variable as per the directory or filepath of your Rate file
     '''
-    
-    filename = 'C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate.csv'
+
+    filename = 'C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate_rating_area_2.csv'
     rate_2016_df = pd.read_csv(filename, keep_default_na=False)
+    # print(rate_2016_df.columns)
     print("Read")
     date1 = pd.to_datetime(rate_2016_df['RateEffectiveDate'])
 
@@ -33,49 +34,63 @@ if __name__ == "__main__":
     plan_ids = (rate_2016_df.PlanId.unique()).tolist()
     ages = (rate_2016_df.Age.unique()).tolist()
     count = 0
-    for plan in plan_ids:
-        for age in ages:
-            print(count)
-            count += 1
-            flag = False
-            df_plan = rate_2016_df[
-                (rate_2016_df['PlanId'] == plan) & (rate_2016_df['Age'] == age)]
-            if len(df_plan):
-                for i in range(len(df_plan)):
-                    # print(df_plan['diff_years'])
-                    if df_plan['diff_years'].iloc[i] >= 11:
-                        flag = True
-                        # print(df_plan.iloc[i])
-                        new_df = pd.DataFrame([df_plan.iloc[i, :]])
-                        with open('rate_clean.csv', 'a') as f:
-                            header_title = False
+    with open('C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate_clean_area2.csv', 'a') as f:
+        header_title = False
+        for plan in plan_ids:
+            for age in ages:
+                print(count)
+                count += 1
+                flag = False
+                df_plan = rate_2016_df[
+                    (rate_2016_df['PlanId'] == plan) & (rate_2016_df['Age'] == age)]
+                if len(df_plan):
+                    for i in range(len(df_plan)):
+                        # print(df_plan['diff_years'])
+                        if df_plan['diff_years'].iloc[i] >= 11:
+                            flag = True
+                            # print(df_plan.iloc[i])
+                            new_df = pd.DataFrame([df_plan.iloc[i, :]])
                             if f.tell() == 0:
                                 header_title = list(rate_2016_df.columns)
+                            else:
+                                header_title = False
                             new_df.to_csv(f, mode='a', sep=',', header=header_title, index=False)
-                        print("Reached flag")
-                        break;
+                            print("Reached flag")
+                            break;
 
-                if not flag:
-                    # print("Age" , age, plan)
-                    # print(df_plan)
-                    df_plan_copy = pd.DataFrame([df_plan.iloc[0]], columns=list(rate_2016_df.columns))
-                    df_plan_copy['IndividualRate'] = pd.to_numeric(df_plan['IndividualRate']).mean()
-                    # print("done")
-                    df_plan_copy['IndividualTobaccoRate'] = pd.to_numeric(df_plan['IndividualTobaccoRate']).mean()
-                    df_plan_copy['Couple'] = pd.to_numeric(df_plan['Couple']).mean()
-                    df_plan_copy['PrimarySubscriberAndOneDependent'] = pd.to_numeric(
-                        df_plan['PrimarySubscriberAndOneDependent']).mean()
-                    df_plan_copy['PrimarySubscriberAndTwoDependents'] = pd.to_numeric(
-                        df_plan['PrimarySubscriberAndTwoDependents']).mean()
-                    df_plan_copy['PrimarySubscriberAndThreeOrMoreDependents'] = pd.to_numeric(
-                        df_plan['PrimarySubscriberAndThreeOrMoreDependents']).mean()
-                    df_plan_copy['CoupleAndOneDependent'] = pd.to_numeric(df_plan['CoupleAndOneDependent']).mean()
-                    df_plan_copy['CoupleAndTwoDependents'] = pd.to_numeric(df_plan['CoupleAndTwoDependents']).mean()
-                    df_plan_copy['CoupleAndThreeOrMoreDependents'] = pd.to_numeric(
-                        df_plan['CoupleAndThreeOrMoreDependents']).mean()
-                    with open('rate_clean.csv', 'a') as f:
-                        header_title = False
-                        if f.tell() == 0:
-                            header_title = list(rate_2016_df.columns)
-                        df_plan_copy.to_csv(f, mode='a', sep=',', header=header_title, index=False)
-                    print("Reached non flag")
+                        else :
+                            if f.tell() == 0:
+                                header_title = list(rate_2016_df.columns)
+                            else:
+                                header_title = False
+                            if df_plan.iloc[i]['IndividualRate'] > 0  and age!='Family Option':
+                                print(pd.DataFrame([df_plan.iloc[i, :]]))
+                                pd.DataFrame([df_plan.iloc[i,:]]).to_csv(f, mode='a', sep=',', header=header_title, index=False)
+                                break;
+                            elif age=='Family Option' :
+                                pd.DataFrame(df_plan.iloc[:1]).to_csv(f, mode='a', sep=',', header=header_title,index=False)
+                                break;
+
+                        #         # print("Age" , age, plan)
+                        # # print(df_plan)
+                        # df_plan_copy = pd.DataFrame([df_plan.iloc[0]], columns=list(rate_2016_df.columns))
+                        # df_plan_copy['IndividualRate'] = pd.to_numeric(df_plan['IndividualRate']).mean()
+                        # # print("done")
+                        # df_plan_copy['IndividualTobaccoRate'] = pd.to_numeric(df_plan['IndividualTobaccoRate']).mean()
+                        # df_plan_copy['Couple'] = pd.to_numeric(df_plan['Couple']).mean()
+                        # df_plan_copy['PrimarySubscriberAndOneDependent'] = pd.to_numeric(
+                        #     df_plan['PrimarySubscriberAndOneDependent']).mean()
+                        # df_plan_copy['PrimarySubscriberAndTwoDependents'] = pd.to_numeric(
+                        #     df_plan['PrimarySubscriberAndTwoDependents']).mean()
+                        # df_plan_copy['PrimarySubscriberAndThreeOrMoreDependents'] = pd.to_numeric(
+                        #     df_plan['PrimarySubscriberAndThreeOrMoreDependents']).mean()
+                        # df_plan_copy['CoupleAndOneDependent'] = pd.to_numeric(df_plan['CoupleAndOneDependent']).mean()
+                        # df_plan_copy['CoupleAndTwoDependents'] = pd.to_numeric(df_plan['CoupleAndTwoDependents']).mean()
+                        # df_plan_copy['CoupleAndThreeOrMoreDependents'] = pd.to_numeric(
+                        #     df_plan['CoupleAndThreeOrMoreDependents']).mean()
+                        # with open('C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate_clean.csv', 'a') as f:
+                        #     header_title = False
+                        #     if f.tell() == 0:
+                        #         header_title = list(rate_2016_df.columns)
+                        #     df_plan_copy.to_csv(f, mode='a', sep=',', header=header_title, index=False)
+                        print("Reached non flag")
