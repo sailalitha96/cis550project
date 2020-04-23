@@ -4,12 +4,43 @@ import csv
 # from sqlalchemy  import create_engine
 from datetime import datetime
 
+
+def combine_rate(file1, file2, file3):
+    rating_1 = pd.read_csv(file1, keep_default_na=True)
+
+    rating_2 = pd.read_csv(file2, keep_default_na=True)
+    rating_3 = pd.read_csv(file3, keep_default_na=True)
+    #
+    frames = [rating_1.iloc[:, :12], rating_2.iloc[:, :12], rating_1.iloc[:, :12]]
+    final_df = pd.concat(frames, axis=0)
+    col_frames1 = [rating_1.iloc[:, 12:21].reset_index(drop=True),
+                   0 * rating_2.iloc[:, 12:21].reset_index(drop=True),
+                   0 * rating_3.iloc[:, 12:21].reset_index(drop=True)]
+    col_frames2 = [0 * rating_1.iloc[:, 12:21].reset_index(drop=True),
+                   rating_2.iloc[:, 12:21].reset_index(drop=True),
+                   0 * rating_3.iloc[:, 12:21].reset_index(drop=True)]
+    col_frames3 = [0 * rating_1.iloc[:, 12:21].reset_index(drop=True),
+                   0 * rating_2.iloc[:, 12:21].reset_index(drop=True),
+                   rating_3.iloc[:, 12:21].reset_index(drop=True)]
+
+    rating_1_col_df = pd.DataFrame(np.concatenate(col_frames1), columns=rating_1.columns[12:21])
+    rating_2_col_df = pd.DataFrame(np.concatenate(col_frames2), columns=rating_2.columns[12:21])
+    rating_3_col_df = pd.DataFrame(np.concatenate(col_frames3), columns=rating_3.columns[12:21])
+
+    col_df_combined = pd.concat([rating_1_col_df, rating_2_col_df, rating_3_col_df], axis=1)
+    print(col_df_combined.shape)
+    # col_df_combined.to_csv("C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Column_check.csv")
+    # print(rating_1_col_df.shape)
+    Rate_df = pd.concat([final_df.reset_index(drop=True), col_df_combined.reset_index(drop=True)], axis=1)
+    Rate_df.replace('', 0, inplace=True)
+    Rate_df.fillna(0, inplace=True)
+    Rate_df.to_csv("C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate_2019_database.csv",index = False)
+    print("Done")
+    pass
+
+
 # import sqlite3
 if __name__ == "__main__":
-    ls = []
-    # engine = create_engine('sqlite:///test.db', echo = True)
-
-    # db = create_engine('sqlite:///.db')
 
     # ## data preprocessing on rate 2016
     '''
@@ -70,27 +101,9 @@ if __name__ == "__main__":
                             elif age=='Family Option' :
                                 pd.DataFrame(df_plan.iloc[:1]).to_csv(f, mode='a', sep=',', header=header_title,index=False)
                                 break;
-
-                        #         # print("Age" , age, plan)
-                        # # print(df_plan)
-                        # df_plan_copy = pd.DataFrame([df_plan.iloc[0]], columns=list(rate_2016_df.columns))
-                        # df_plan_copy['IndividualRate'] = pd.to_numeric(df_plan['IndividualRate']).mean()
-                        # # print("done")
-                        # df_plan_copy['IndividualTobaccoRate'] = pd.to_numeric(df_plan['IndividualTobaccoRate']).mean()
-                        # df_plan_copy['Couple'] = pd.to_numeric(df_plan['Couple']).mean()
-                        # df_plan_copy['PrimarySubscriberAndOneDependent'] = pd.to_numeric(
-                        #     df_plan['PrimarySubscriberAndOneDependent']).mean()
-                        # df_plan_copy['PrimarySubscriberAndTwoDependents'] = pd.to_numeric(
-                        #     df_plan['PrimarySubscriberAndTwoDependents']).mean()
-                        # df_plan_copy['PrimarySubscriberAndThreeOrMoreDependents'] = pd.to_numeric(
-                        #     df_plan['PrimarySubscriberAndThreeOrMoreDependents']).mean()
-                        # df_plan_copy['CoupleAndOneDependent'] = pd.to_numeric(df_plan['CoupleAndOneDependent']).mean()
-                        # df_plan_copy['CoupleAndTwoDependents'] = pd.to_numeric(df_plan['CoupleAndTwoDependents']).mean()
-                        # df_plan_copy['CoupleAndThreeOrMoreDependents'] = pd.to_numeric(
-                        #     df_plan['CoupleAndThreeOrMoreDependents']).mean()
-                        # with open('C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate_clean.csv', 'a') as f:
-                        #     header_title = False
-                        #     if f.tell() == 0:
-                        #         header_title = list(rate_2016_df.columns)
-                        #     df_plan_copy.to_csv(f, mode='a', sep=',', header=header_title, index=False)
                         print("Reached non flag")
+
+    file_1 = 'C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate_clean_area1.csv'
+    file_2 = 'C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate_clean_area2.csv'
+    file_3 = 'C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/Rate_clean_area3.csv'
+    combine_rate(file_1, file_2, file_3)
