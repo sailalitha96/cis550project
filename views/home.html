@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Health Insurance Project</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="stylesheets/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="stylesheets/css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="stylesheets/css/style.css" rel="stylesheet">
+</head>
+
+<body ng-app="Healthcare">
+
+
+  <!-- Start your project here-->
+<header>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+  <navbar page="sports"></navbar>
+</header>
+
+<div class="card bg-dark">
+  <img class="card-img" src="/images/usa-map.jpg" alt="Card image">
+  <div class="card-img-overlay">
+    <h5 class="card-title text-center"> </h5>
+    <h1 class="card-title text-center"> </h1>
+    <h1 class="card-title text-center">Interactive Map</h1>
+    <p class="card-text red-text text-center">To be done: Add an interactive map here, where each state is clickable and takes you to a page that shows information on health insurance plans available in the specific state you clicked.</p>
+  </div>
+</div>
+
+
+  <!-- Main Contents Starts -->
+  <main ng-controller="homeController">
+
+    <div class="row"><br></div>
+    <!-- Grid row -->
+    <div class="row">
+
+    <div class="card bg-dark text-center">
+      <img class="card-img" src="/images/private_healthcare.jpg" alt="Card image">
+      <div class="card-img-overlay">
+        <h1 class="card-title">Network Plans Statistics</h1>
+        <p class="card-text blue-text">Explore different plans available to you suited to your individual needs and demographics.</p>
+        <a href="/results" class="btn btn-outline-white btn-md waves-effect">Find Available Plans!</a>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+      <p></p>
+    </div>
+    <div class="row">
+
+      <div class="card bg-dark text-center">
+      <img class="card-img" src="/images/dental-health-insurance.jpg" alt="Card image">
+      <div class="card-img-overlay">
+        <h1 class="card-title">Dental Plans Statistics</h1>
+        <p class="card-text blue-text">Explore different dental plans available to you suited to your individual needs and demographics.</p>
+        <a href="/stats" class="btn btn-outline-white btn-md waves-effect">Find Available Plans!</a>
+      </div>
+    </div>
+    </div>
+  </main>
+  <!--  Main Contents Ends -->
+
+
+
+
+  <!--Footer-->
+  <footer>
+
+  </footer>
+  <!--Footer-->
+
+
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="javascripts/js/jquery-3.4.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="javascripts/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="javascripts/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="javascripts/js/mdb.min.js"></script>
+
+  <!---Angular app-->
+  <script src="javascripts/healthcare.js"></script>
+
+  <!--Controller-->
+  <script src="javascripts/controllers/homeController.js"></script>
+  <script src="javascripts/controllers/navBarController.js"></script>
+
+  <!--Services-->
+  <script src="javascripts/services/sportsService.js"></script>
+  <script src="javascripts/services/navigationService.js"></script>
+  <script src="javascripts/services/userInfoService.js"></script>
+
+</body>
+
+</html>

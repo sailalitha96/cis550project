@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Network Plans</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="stylesheets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="stylesheets/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="stylesheets/css/style.css" rel="stylesheet">
+</head>
+
+<body ng-app="Healthcare">
+
+    <!-- Start your project here-->
+
+    <!--Main Navigation-->
+    <header>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+        <navbar page="network"></navbar>
+    </header>
+    <!--Main Navigation-->
+    <main ng-controller="networkController">
+        <br>
+        <br>
+        <br>
+    <div class="col-lg-3 col-md-12 mb-3">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-11">
+          <div class="grey-text" style="margin-left: 20px">Select State Code</div>
+          <div class="dropdown-container">
+            <select class="dropdown text-center" ng-model="selectedNetwork" ng-change="networkSelection()" ng-options="network.networks as network.networks for network in networks"></select>
+          </div>
+        </div>
+    </div>
+    </main>
+
+    <!--Footer-->
+    <footer>
+
+    </footer>
+    <!--Footer-->
+
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="javascripts/js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="javascripts/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="javascripts/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="javascripts/js/mdb.min.js"></script>
+
+    <!---Angular app-->
+    <script src="javascripts/healthcare.js"></script>
+
+    <!--Controller-->
+    <script src="javascripts/controllers/networkController.js"></script>
+    <script src="javascripts/controllers/navBarController.js"></script>
+
+    <!--Services-->
+    <script src="javascripts/services/networkService.js"></script>
+    <script src="javascripts/services/userInfoService.js"></script>
+
+
+</body>
+
+</html>
