@@ -1,6 +1,20 @@
 app.factory('networkService',function($http){
     var networkList = function() {
-        return $http.get("/network").then(function(response) {
+        return $http.get("/network_backend_states").then(function(response) {
+            
+            return response.data;
+        });
+    };
+
+    var agelist = function() {
+        return $http.get("/network_backend_ages").then(function(response) {
+            
+            return response.data;
+        });
+    };
+
+    var querylist1 = function(state) {
+        return $http.get(`/network_backend_q1/state?state=${state}`).then(function(response) {
             
             return response.data;
         });
@@ -8,5 +22,7 @@ app.factory('networkService',function($http){
 
     return {
        networkList:networkList,
+       agelist:agelist,
+       querylist1:querylist1
     };
 });
