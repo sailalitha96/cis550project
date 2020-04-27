@@ -19,11 +19,13 @@ app.controller('networkController', function($scope, networkService) {
         //$scope.selectedState="";
         // $scope.q1=[];
         $scope.query1();
+        $scope.stateflag= true;
         console.log($scope.q1);
     };
     $scope.ageSelection = function(){
         //$scope.selectedAge="";
         //$scope.selectedState="";
+        $scope.ageflag= true;
         console.log($scope.selectedAge);
     };
     $scope.q1Selection = function(){

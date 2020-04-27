@@ -36,8 +36,9 @@
           <div class="col-md-6">
           <div class="grey-text" style="margin-left: 20px">Select State Code</div>
           <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.StateCode for network in networks"></select>
-          </div>
+            <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.StateCode for network in networks">
+            <option value=""> Select State </option>  </select>
+        </div>
           <!-- <p>{{selectedState}}</p> -->
             </div>
          <!-- </div> -->
@@ -49,8 +50,9 @@
           <div class="col-md-6">
           <div class="grey-text" style="margin-left: 20px">Select Age</div>
           <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists"></select>
-          </div>
+            <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists">
+            <option value=""> Select Age </option>  </select>
+        </div>
           <!-- <p>{{selectedAge}}</p> -->
         </div>
     </div>
@@ -59,23 +61,39 @@
     <style>
         table, th, td {
           border: 1px solid black;
-          margin: 0 auto; 
+          margin: 10px auto; 
         }
     </style>
-    <table  width="80%" >     
-    <thead style="text-align:center">           
-        <tr>
-            <th>Issuer ID</th>
-            <th>Network Name</th>
-        </tr>
-    </thead>
-    <tbody  style="text-align:center">
-        <tr data-ng-repeat="data in q1">
-            <td style="width:30%">{{ data.IssuerId}}</td>
-            <td style="width:70%">{{ data.NetworkName}}</td>
-        </tr>
-    </tbody>
-    </table>
+    <div ng-show="stateflag && ageflag">
+        <table  width="80%" >     
+        <thead style="text-align:center">           
+            <tr>
+                <th>Issuer ID</th>
+                <th>Network Name</th>
+            </tr>
+        </thead>
+        <tbody  style="text-align:center">
+            <tr data-ng-repeat="data in q1">
+                <td style="width:30%">{{ data.IssuerId}}</td>
+                <td style="width:70%">{{ data.NetworkName}}</td>
+            </tr>
+        </tbody>
+        </table>
+
+    <div class="col-lg-3 col-md-12 mb-3">
+        <div class="row">
+            <!-- <div class="col-md-1"></div> -->
+            <div class="col-md-6">
+            <div class="grey-text" style="margin-left: 20px">Select Issuer ID</div>
+            <div class="dropdown-container">
+            <select class="dropdown text-center" ng-model="selectedIssuerID" ng-change="issuerSelection()" ng-options="data.IssuerId for data in q1">
+            <option value=""> Select IssuerID </option>  </select>
+        </div>
+            <!-- <p>{{selectedState}}</p> -->
+        </div>
+        </div></div>
+    
+    </div>
     </main>
 
     <!--Footer-->
