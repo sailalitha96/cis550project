@@ -20,9 +20,17 @@ app.factory('networkService',function($http){
         });
     };
 
+    var service_avgrateperid = function(issuerid, age) {
+        return $http.get(`/network_backend_avgrate/issuerid/${issuerid}/age/${age}`).then(function(response) {
+            
+            return response.data;
+        });
+    };
+
     return {
        networkList:networkList,
        agelist:agelist,
-       querylist1:querylist1
+       querylist1:querylist1,
+       service_avgrateperid:service_avgrateperid
     };
 });

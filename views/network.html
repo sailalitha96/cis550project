@@ -86,12 +86,35 @@
             <div class="col-md-6">
             <div class="grey-text" style="margin-left: 20px">Select Issuer ID</div>
             <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedIssuerID" ng-change="issuerSelection()" ng-options="data.IssuerId for data in q1">
+            <select class="dropdown text-center" ng-model="selectedIssuerID" ng-change="cont_avgrateperidSelection()" ng-options="data.IssuerId for data in q1">
             <option value=""> Select IssuerID </option>  </select>
         </div>
-            <!-- <p>{{selectedState}}</p> -->
+            <!-- <p>{{selectedIssuerID}}</p> -->
         </div>
         </div></div>
+    
+
+        <!-- In this show the value from cont_avgrateperidSelection() -->
+        <div ng-show="issuerflag&& ageflag">
+        <table  width="80%" >     
+            <thead style="text-align:center">           
+                <tr>
+                    <th>NumPlans</th>
+                    <th> Avg Premimum</th>
+                    <th> Avg Copay</th>
+                    <th> Avg Coinsurance</th>
+                </tr>
+            </thead>
+            <tbody  style="text-align:center">
+                <tr data-ng-repeat="data in avgrateperid">
+                    <td style="width:30%">{{ data.NumPlans}}</td>
+                    <td style="width:70%">{{ data.Avg_Premium}}</td>
+                    <td style="width:70%">{{ data.Avg_Copay}}</td>
+                    <td style="width:70%">{{ data.Avg_Coinsurance}}</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
     
     </div>
     </main>

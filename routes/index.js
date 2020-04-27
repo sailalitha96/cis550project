@@ -26,6 +26,8 @@ router.get('/network',htmlLoader.network);
 router.get('/network_backend_states/', networkController.getList);
 router.get('/network_backend_ages/', networkController.getagedistinct);
 router.get('/network_backend_q1/state/', networkController.q1list);
+router.get('/network_backend_avgrate/issuerid/:issuerid/age/:age', networkController.getAvgratescopay);
+
 
 /* ---------------------------------------------------- Authentication ----------------------------------------------------*/
 
