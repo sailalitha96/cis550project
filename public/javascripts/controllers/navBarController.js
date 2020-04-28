@@ -2,12 +2,7 @@ app.controller("navBarController",navbarController = function navbarController($
 
   //----------------------------------------------Page view configurations------------------------------------------------
     
-    var defaultSport = 'BasketBall';
     $scope.homePage = '/home';
-    $scope.sportsPage = `/olympicSports?sport=${defaultSport}`;
-    $scope.resultsPage = '/results';
-    $scope.statsPage = '/stats';
-    $scope.quizPage = '/quiz';
     $scope.networkPage = '/network';
 
 

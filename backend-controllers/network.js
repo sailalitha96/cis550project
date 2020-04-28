@@ -20,8 +20,8 @@ exports.getList = function(req, res) {
     var state = req.query.state;
     state = JSON.stringify(state);
     console.log(state);
-  	var query = `SELECT DISTINCT(network.IssuerId),network.NetworkName FROM network WHERE network.StateCode LIKE ${state} AND network.DentalOnlyPlan LIKE '%No%' group by IssuerID`;
-    console.log(query);
+  	var query = `SELECT DISTINCT(network.IssuerId),network.NetworkName ,network.NetworkURL as neturl FROM network WHERE network.StateCode LIKE ${state} AND network.DentalOnlyPlan LIKE '%No%' group by IssuerID`;
+    // console.log(query);
 
     sql.execute(query, res);
   };
@@ -69,3 +69,22 @@ exports.getList = function(req, res) {
 
     sql.execute(query, res);
   };
+
+  exports.getbenefitname = function(req, res) {
+
+    var issuerid = req.params.issuerid; 
+    issuerid =  JSON.stringify(issuerid);
+    // issuerid = parseInt(issuerid,10);
+    var age= req.params.age; 
+    age = JSON.stringify(age);
+    // console.log("getagedistinct");
+    var query = `
+    SELECT DISTINCT(bcs.BenefitName) as Benefits 
+    FROM bcs 
+    JOIN (SELECT DISTINCT(rate.PlanId) as plan_Id FROM rate WHERE rate.IssuerId=  ${issuerid}  AND rate.Age =  ${age}) R1 ON 
+    bcs.StandardComponentId = R1.plan_Id;
+    `;  
+    sql.execute(query, res);
+    };
+  
+  

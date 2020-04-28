@@ -15,6 +15,9 @@ app.controller('networkController', function($scope, networkService) {
 
     // this is the second query which gives (given a issuer id , state and age) - provides the average rate of perimuims , no of plans , avg copay and stuff 
     $scope.cont_avgrateperid = function(){networkService.service_avgrateperid($scope.selectedIssuerID.IssuerId,$scope.selectedAge.Age).then(function(data){$scope.avgrateperid = data;});};
+    // this function provides the benefits given a issuer id and age 
+    $scope.cont_benefitperid = function(){networkService.service_benefitperid($scope.selectedIssuerID.IssuerId,$scope.selectedAge.Age).then(function(data){$scope.benefitperid = data;});};
+
 //----------------------------------------------Get Data From the services------------------------------------------------
     $scope.networkSelection = function(){
         // $scope.selectedAge="";
@@ -41,7 +44,8 @@ app.controller('networkController', function($scope, networkService) {
         $scope.issuerflag= true;
 
         console.log($scope.selectedIssuerID.IssuerId);
-    	$scope.cont_avgrateperid();
-        // console.log($scope.avgrateperid);
+        $scope.cont_avgrateperid();
+        $scope.cont_benefitperid();
+        // console.log($scope.benefitperid);
     };
 });

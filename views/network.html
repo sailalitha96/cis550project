@@ -70,12 +70,14 @@
             <tr>
                 <th>Issuer ID</th>
                 <th>Network Name</th>
+                <th>Network URL</th>
             </tr>
         </thead>
         <tbody  style="text-align:center">
             <tr data-ng-repeat="data in q1">
                 <td style="width:30%">{{ data.IssuerId}}</td>
                 <td style="width:70%">{{ data.NetworkName}}</td>
+                <td style="width:70%">{{ data.neturl}}</td>
             </tr>
         </tbody>
         </table>
@@ -115,6 +117,25 @@
             </tbody>
             </table>
         </div>
+
+        <!-- Display benefits per ID  -->
+        <table  width="80%" >     
+            <thead style="text-align:center">           
+                <tr>
+                    <th>Benefits</th>
+                    <!-- <th>Network Name</th>
+                    <th>Network URL</th> -->
+                </tr>
+            </thead>
+            <tbody  style="text-align:center">
+                <tr data-ng-repeat="data in benefitperid">
+                    <td >{{ data.Benefits}}</td>
+                    <!-- <td style="width:70%">{{ data.NetworkName}}</td>
+                    <td style="width:70%">{{ data.neturl}}</td> -->
+                </tr>
+            </tbody>
+        </table>
+
     
     </div>
     </main>
