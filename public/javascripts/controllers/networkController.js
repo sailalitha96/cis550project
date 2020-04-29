@@ -69,14 +69,14 @@ app.controller('networkController', function($scope, networkService) {
 
         //invoke graph function
         $scope.createdg1flag= true;
-        $scope.createBarChart($scope);
+        $scope.createPieChart($scope);
     };
 
-    $scope.createBarChart = function( $scope){
+    $scope.createPieChart = function( $scope){
             // handles the structure of the graph and the data passed through it 
 
             // debug statements
-            console.log("In createBarChart");
+            console.log("In createPieChart");
             console.log( $scope.avgrateperid_avgcopay)
 
             //defintition of graph 
@@ -84,15 +84,15 @@ app.controller('networkController', function($scope, networkService) {
                 header: ["Name", "Number"],
             rows: [
                 ["Avg_Premium", $scope.avgrateperid_avgpremimum ],
-                ["Avg_Copay", $scope.avgrateperid_avgpremimum ],
-                ["Avg_Coinsurance", $scope.avgrateperid_avgpremimum ]
+                ["Avg_Copay", $scope.avgrateperid_avgcopay ],
+                ["Avg_Coinsurance", $scope.avgrateperid_avgcoins]
             ]};
 
             // create the chart
-            var chart = anychart.column();
+            var chart = anychart.pie(data);
 
             // add data
-            chart.data(data);
+            //chart.data(data);
 
             // set the chart title
             chart.title("Data Visualization");
