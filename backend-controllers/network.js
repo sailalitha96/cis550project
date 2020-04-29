@@ -42,7 +42,7 @@ exports.getList = function(req, res) {
     // console.log(issuerid)
     // console.log("age id is")
     // console.log(age)
-  	var query = `SELECT total.count as NumPlans , total.premium as Avg_Premium,ROUND(AVG(total.Copay)) as Avg_Copay,
+  	var query = `SELECT  total.premium as Avg_Premium,ROUND(AVG(total.Copay)) as Avg_Copay,
     ROUND(AVG(total.CoInsurance)) as Avg_Coinsurance 
     FROM 
     (SELECT 
