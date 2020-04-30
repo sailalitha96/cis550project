@@ -122,6 +122,6 @@ exports.getList = function(req, res) {
       ON rate_by_metal_level.MetalLevel = pcw.MetalLevel_2018
       GROUP BY pcw.MetalLevel_2018;
       `;  
-      console.log(query);
+      // console.log(query);
       sql.execute(query, res);
     };

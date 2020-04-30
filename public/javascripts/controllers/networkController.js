@@ -84,7 +84,7 @@ app.controller('networkController', function($scope, networkService) {
 
 
 
-        $scope.carddisplay();
+        // $scope.carddisplay();
 
     };
 
@@ -124,52 +124,104 @@ app.controller('networkController', function($scope, networkService) {
     $scope.feeddata = async function(){
         // var cont_metallevelrate =  function(){networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.metallevelrate = data;console.log("I got binded", $scope.metallevelrate);});};
         var metaldata = {};
+        var carddata = []
         var metallevelrate = await (networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){metaldata =data;console.log(data);}));
          
         // cont_metallevelrate().then(function(){console.log("I got binded", $scope.metallevelrate);});
         // var waits = await $scope.cont_metallevelrate();
+        var colorpalet = { "High" :'gray' , "Low":'beige', "Bronze":'bronze', "Silver":'silver',"Catastrophic":'darkcyan','Gold':'Metallic Gold'};
         console.log(metaldata);
+        console.log("For loop");
+        // iterate through the metaldata to get info on card 
+        for ( var key in metaldata){
+            var tmp={}
+            tmp['level'] = metaldata[key].MetalLevel;
+            metaldata[key]['color'] = colorpalet[metaldata[key].MetalLevel];
+            
+            // tmp['premium'] = metaldata[key].premium;
+            // tmp['avgcopay1'] = metaldata[key].AvgCopayInTier1;
+            // tmp['avgcopaynet']= metaldata[key].AvgCopayOutofNet;
+            // tmp['avgcoins1']= metaldata[key].AvgCoinsInTier1;
+            // tmp['avgcoinsnet']= metaldata[key].AvgCoinsOutofNet;
+            // carddata.push(tmp);
+        }
+        // // console.log(metaldata);
+        // console.log(carddata)
+        $scope.sensorList = metaldata;
+        console.log($scope.sensorList);
     };
         
-    $scope.carddisplay= function() {
-                $scope.sensorList = [{
-                hour: 12,
-                color: 'red'
-                }, {
-                hour: 12,
-                color: 'green'
-                }, {
-                hour: 12,
-                color: '#a3a3a3'
-                }, {
-                hour: 5,
-                color: 'purple'
-                }, {
-                hour: 2,
-                color: '#b68585'
-                }, {
-                hour: 12,
-                color: '#d2d2d2'
-                }, {
-                hour: 12,
-                color: '#c77cdf'
-                // }, {
-                // hour: 3,
-                // color: '#b68585'
-                // }, {
-                // hour: 14,
-                // color: 'yellow'
-                // }, {
-                // hour: 4,
-                // color: 'blue'
-                // }, {
-                // hour: 7,
-                // color: '#aeaeae'
-                // }, {
-                // hour: 12,
-                // color: '#d4d6d7'
-                }];
-            }
+    $scope.Get_metalgraphs = function(value){
+        console.log(value);
+        var data = {
+            header: ["Name", "Number"],
+        rows: [
+            ["Premium", value.premium ],
+            ["Avg Copay", value.avgcopay1 ],
+            ["Avg Coinsurance", value.avgcoins1],
+            ["Avg Copay Out of Net", value.avgcopaynet ],
+            ["Avg Coinsurance Out of Net", value.avgcoinsnet ],
+
+        ]};
+
+        // create the chart
+        var chart = anychart.pie(data);
+
+        // add data
+        //chart.data(data);
+        chart.radius('43%')
+        chart.innerRadius('30%');
+        //set chart radius
+        // create empty area in pie chart
+        
+        // set the chart title
+        chart.title("Rates Visualization");
+
+
+        // draw
+        chart.container("donughtchartrates");
+        chart.draw();
+
+    };
+    // $scope.carddisplay= function() {
+            //     $scope.sensorList = [{
+            //     hour: 12,
+            //     color: 'red'
+            //     }, {
+            //     hour: 12,
+            //     color: 'green'
+            //     }, {
+            //     hour: 12,
+            //     color: '#a3a3a3'
+            //     }, {
+            //     hour: 5,
+            //     color: 'purple'
+            //     }, {
+            //     hour: 2,
+            //     color: '#b68585'
+            //     }, {
+            //     hour: 12,
+            //     color: '#d2d2d2'
+            //     }, {
+            //     hour: 12,
+            //     color: '#c77cdf'
+            //     // }, {
+            //     // hour: 3,
+            //     // color: '#b68585'
+            //     // }, {
+            //     // hour: 14,
+            //     // color: 'yellow'
+            //     // }, {
+            //     // hour: 4,
+            //     // color: 'blue'
+            //     // }, {
+            //     // hour: 7,
+            //     // color: '#aeaeae'
+            //     // }, {
+            //     // hour: 12,
+            //     // color: '#d4d6d7'
+            //     }];
+            // }
 ////////////////////////////////if needed use these//////////////////////////////////////
        
     // $scope.q1Selection = function(){

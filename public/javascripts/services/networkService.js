@@ -43,7 +43,7 @@ app.factory('networkService',function($http){
 
     var service_metallevelrate = function(issuerid, age) {
         return $http.get(`/network_backend_metalrate/issuerid/${issuerid}/age/${age}`).then(function(response) {
-            console.log(response.data);
+            // console.log(response.data);
             return response.data;
         });
     };

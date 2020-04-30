@@ -113,63 +113,68 @@
             <div id="chartscustom" align="center">
                 <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
                 <div id="piechartrates" style="width: 500px; height: 400px"></div>
-            </style>
-            </div>
+                </style>
+            
 
             <!-- We try to display a card for metal levels -->
 
-            <style>
-                .cards{
-                    display: grid;
-                    grid-gap: 1em;
-                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                    /* grid-template-rows: repeat(4, 1fr); */ 
-                }
-                .card {
-                    border: 1px solid #d3d3d3;
-                    border-radius: .25rem;
-                }
-                /* .bg-img {
-                background-size: cover;
-                min-height: 180px;
-                background-position: center;
-                background-color: #ccc;
-                } */
-                .content {
-                        padding: 15px;
-                }
-
-                button {
-                    background-color: transparent;
-                    border: 1px solid #2196F3;
-                    padding: .5rem 1rem;
-                    cursor: pointer;
-                    border-radius: .25rem;
-                }
-                .grid-item {
-                    border: 2px solid black;
-                    border-radius: 4px;
-                    font-size: 70%;
-                    padding: 1em;
-                    text-align: center;
+                <style>
+                    .cards{
+                        display: grid;
+                        grid-gap: 1em;
+                        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                        /* grid-template-rows: repeat(4, 1fr); */ 
                     }
-            </style>
+                    .card {
+                        border: 1px solid #d3d3d3;
+                        border-radius: .25rem;
+                    }
+                    /* .bg-img {
+                    background-size: cover;
+                    min-height: 180px;
+                    background-position: center;
+                    background-color: #ccc;
+                    } */
+                    .content {
+                            padding: 15px;
+                    }
 
-            <div class="cards">
-                <div class="card" ng-repeat="sensor in sensorList" ng-style="{'background':sensor.color}">
-                    <!-- <div class="bg-img"></div> -->
-                        <div class="content">
-                            <h4>Card title</h4>
-                                <p> Some quick example text to build on the card title and make up the bulk of the card's content. </p>  
-                                <button>Readmore</button> </div>
-                        <!-- </div> -->
-                                <!-- <div class="card">...</div>
-                                <div class="card">...</div> -->
-                    </div>  
+                    button {
+                        background-color: transparent;
+                        border: 1px solid #2196F3;
+                        padding: .5rem 1rem;
+                        cursor: pointer;
+                        border-radius: .25rem;
+                    }
+                    .grid-item {
+                        border: 2px solid black;
+                        border-radius: 4px;
+                        font-size: 70%;
+                        padding: 1em;
+                        text-align: center;
+                        }
+                </style>
+
+                <div class="cards">
+                    <div class="card" ng-repeat="sensor in sensorList" ng-style="{'background':sensor.color}">
+                        <!-- <div class="bg-img"></div> -->
+                            <div class="content">
+                                <h4>{{sensor.MetalLevel}}</h4>
+                                    <p> To Know more about the {{sensor.MetalLevel}} level Statistics such as Co-Pay and Co-Insurance click Below </p>  
+                                    <button ng-click="Get_metalgraphs(sensor)" ng-model="m_graph" ng-change="Get_metalgraphs(sensor)">Visualize</button> </div>
+                                    <!-- <div id="chartscustom" align="center"> -->
+                                        <div class="content">
+                                        <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+                                        <div id="donughtchartrates" style="width: 200px; height: 300px"></div></div>
+                            <!-- </div> -->
+                                    <!-- <div class="card">...</div>
+                                    <div class="card">...</div> -->
+                        </div>  
+                </div>
                 <!-- <div>SENSOR {{ $index + 1 }}</div>
                 <div>Hours: {{ sensor.hour }}</div>
-            </div></div> -->
-        
+                 </div></div> -->
+            </div>
         </div> 
         
         <!-- Get a pie chart -->
