@@ -89,7 +89,7 @@
 
         <!-- In this show the value from cont_avgrateperidSelection() , clicks on Visualize to get graphs -->
         <div ng-show="issuerflag&& ageflag">
-        <table  width="80%" >     
+            <table  width="80%" >     
             <thead style="text-align:center">           
                 <tr>
                     <!-- <th>NumPlans</th> -->
@@ -110,13 +110,67 @@
                 </tr>
             </tbody>
             </table>
-        <div id="chartscustom" align="center">
-            <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
-            <div id="piechartrates" style="width: 500px; height: 400px"></div>
-        </style>
-        </div>
-        
+            <div id="chartscustom" align="center">
+                <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+                <div id="piechartrates" style="width: 500px; height: 400px"></div>
+            </style>
+            </div>
 
+            <!-- We try to display a card for metal levels -->
+
+            <style>
+                .cards{
+                    display: grid;
+                    grid-gap: 1em;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    /* grid-template-rows: repeat(4, 1fr); */ 
+                }
+                .card {
+                    border: 1px solid #d3d3d3;
+                    border-radius: .25rem;
+                }
+                /* .bg-img {
+                background-size: cover;
+                min-height: 180px;
+                background-position: center;
+                background-color: #ccc;
+                } */
+                .content {
+                        padding: 15px;
+                }
+
+                button {
+                    background-color: transparent;
+                    border: 1px solid #2196F3;
+                    padding: .5rem 1rem;
+                    cursor: pointer;
+                    border-radius: .25rem;
+                }
+                .grid-item {
+                    border: 2px solid black;
+                    border-radius: 4px;
+                    font-size: 70%;
+                    padding: 1em;
+                    text-align: center;
+                    }
+            </style>
+
+            <div class="cards">
+                <div class="card" ng-repeat="sensor in sensorList" ng-style="{'background':sensor.color}">
+                    <!-- <div class="bg-img"></div> -->
+                        <div class="content">
+                            <h4>Card title</h4>
+                                <p> Some quick example text to build on the card title and make up the bulk of the card's content. </p>  
+                                <button>Readmore</button> </div>
+                        <!-- </div> -->
+                                <!-- <div class="card">...</div>
+                                <div class="card">...</div> -->
+                    </div>  
+                <!-- <div>SENSOR {{ $index + 1 }}</div>
+                <div>Hours: {{ sensor.hour }}</div>
+            </div></div> -->
+        
+        </div> 
         
         <!-- Get a pie chart -->
         <!-- <canvas id="pie" class="chart chart-pie" data="avgrateperid" labels="labels" legend="true">

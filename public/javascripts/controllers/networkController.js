@@ -105,10 +105,52 @@ app.controller('networkController', function($scope, networkService) {
             // draw
             chart.container("piechartrates");
             chart.draw();
+            $scope.carddisplay();
         };
 
 
+        // random test for cards
 
+        
+        $scope.carddisplay= function() {
+                $scope.sensorList = [{
+                hour: 12,
+                color: 'red'
+                }, {
+                hour: 12,
+                color: 'green'
+                }, {
+                hour: 12,
+                color: '#a3a3a3'
+                }, {
+                hour: 5,
+                color: 'purple'
+                }, {
+                hour: 2,
+                color: '#b68585'
+                }, {
+                hour: 12,
+                color: '#d2d2d2'
+                }, {
+                hour: 12,
+                color: '#c77cdf'
+                }, {
+                hour: 3,
+                color: '#b68585'
+                }, {
+                hour: 14,
+                color: 'yellow'
+                }, {
+                hour: 4,
+                color: 'blue'
+                }, {
+                hour: 7,
+                color: '#aeaeae'
+                }, {
+                hour: 12,
+                color: '#d4d6d7'
+                }];
+            }
 ////////////////////////////////if needed use these//////////////////////////////////////
        
     // $scope.q1Selection = function(){
