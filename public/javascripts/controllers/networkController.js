@@ -17,9 +17,13 @@ app.controller('networkController', function($scope, networkService) {
 
     //Get the sport data in the $scope.sport variable
 
+    $scope.selectedState = localStorage.getItem('state');
+    console.log($scope.selectedState);
     networkService.networkList().then(function(data){$scope.networks= data;}); 
+    //$scope.stateid = networkService.getState();
+    
     networkService.agelist().then(function(data){$scope.agelists= data;});
-    $scope.query1 = function(){networkService.querylist1($scope.selectedState.StateCode).then(function(data){$scope.q1 = data;});};
+    $scope.query1 = function(){networkService.querylist1($scope.selectedState).then(function(data){$scope.q1 = data;});};
 
     // this is the second query which gives (given a issuer id , state and age) - provides the average rate of perimuims , no of plans , avg copay and stuff 
     $scope.cont_avgrateperid = function(){networkService.service_avgrateperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.avgrateperid = data;});};
@@ -38,9 +42,9 @@ app.controller('networkController', function($scope, networkService) {
     };
     $scope.ageSelection = function(){
         // function records the selectedAge value(gloabl) within this controller 
-
-
+        console.log($scope.selectedState);
         $scope.ageflag= true;
+        $scope.query1();
         console.log($scope.selectedAge);
     };
 
