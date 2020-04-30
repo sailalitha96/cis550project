@@ -102,7 +102,7 @@ $scope.loaddata = function() {
         var point = evt.point;
         var id = point.get('id');
         var id = id.split('.')[1];
-        networkService.addState(id);
+        // networkService.addState(id);
         $scope.stateid = id;
         localStorage.setItem('state', id);
         window.open("/network");

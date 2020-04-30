@@ -40,27 +40,35 @@ app.factory('networkService',function($http){
         });
     };
 
-    var productList = [];
-    var laststate = "";
 
-  var addState = function(newObj) {
-      productList.push(newObj);
-      laststate = newObj;
-      console.log(laststate);
-  };
+    var service_metallevelrate = function(issuerid, age) {
+        return $http.get(`/network_backend_metalrate/issuerid/${issuerid}/age/${age}`).then(function(response) {
+            // console.log(response.data);
+            return response.data;
+        });
+    };
+//     var productList = [];
+//     var laststate = "";
 
-  var getState = function(){
-    console.log(productList);
-      return productList;
-  };
+//   var addState = function(newObj) {
+//       productList.push(newObj);
+//       laststate = newObj;
+//       console.log(laststate);
+//   };
+
+//   var getState = function(){
+//     console.log(productList);
+//       return productList;
+//   };
 
     return {
-       addState:addState, 
-       getState:getState,
+    //    addState:addState, 
+    //    getState:getState,
        networkList:networkList,
        agelist:agelist,
        querylist1:querylist1,
        service_avgrateperid:service_avgrateperid,
        service_benefitperid:service_benefitperid,
+       service_metallevelrate:service_metallevelrate,
     };
 });

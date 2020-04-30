@@ -8,11 +8,11 @@ app.controller('networkController', function($scope, networkService) {
 
     // for the charts 
 
-    $scope.width = 600;
-    $scope.height = 400;
-    $scope.yAxis = "Sales";
-    $scope.xAxis = "Axis"
-    $scope.labels = ["Average Preimum " , "Average CoPay", "Average CoInsurance"];
+    // $scope.width = 600;
+    // $scope.height = 400;
+    // $scope.yAxis = "Sales";
+    // $scope.xAxis = "Axis"
+    // $scope.labels = ["Average Preimum " , "Average CoPay", "Average CoInsurance"];
     //----------------------------------------------Get Data From the services(Create chart for countries)------------------------------------------------
 
     //Get the sport data in the $scope.sport variable
@@ -30,7 +30,7 @@ app.controller('networkController', function($scope, networkService) {
 
     // this function provides the benefits given a issuer id and age 
     $scope.cont_benefitperid = function(){networkService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.benefitperid = data;});};
-
+    $scope.cont_metallevelrate = function(){networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.metallevelrate = data;});};
 
 //----------------------------------------------Get Data From the services------------------------------------------------
     $scope.networkSelection = function(){
@@ -56,7 +56,7 @@ app.controller('networkController', function($scope, networkService) {
         // console.log( $scope.selectedIssuerID)
         $scope.issuerflag= true;
         $scope.cont_avgrateperid($scope.avgrateperid);
-        $scope.cont_benefitperid();
+        // $scope.cont_benefitperid();
 
     };
 
@@ -74,6 +74,17 @@ app.controller('networkController', function($scope, networkService) {
         //invoke graph function
         $scope.createdg1flag= true;
         $scope.createPieChart($scope);
+
+        // feed data in the card display first and then add a function within the calls 
+        console.log($scope.selectedIssuerID,$scope.selectedAge.Age)
+        
+        $scope.feeddata();
+
+
+
+
+        $scope.carddisplay();
+
     };
 
     $scope.createPieChart = function( $scope){
@@ -105,14 +116,16 @@ app.controller('networkController', function($scope, networkService) {
             // draw
             chart.container("piechartrates");
             chart.draw();
-            $scope.carddisplay();
         };
 
 
         // random test for cards
-
+    $scope.feeddata = function(){
+        $scope.cont_metallevelrate();
+        console.log($scope.metallevelrate);
+    }
         
-        $scope.carddisplay= function() {
+    $scope.carddisplay= function() {
                 $scope.sensorList = [{
                 hour: 12,
                 color: 'red'
@@ -134,21 +147,21 @@ app.controller('networkController', function($scope, networkService) {
                 }, {
                 hour: 12,
                 color: '#c77cdf'
-                }, {
-                hour: 3,
-                color: '#b68585'
-                }, {
-                hour: 14,
-                color: 'yellow'
-                }, {
-                hour: 4,
-                color: 'blue'
-                }, {
-                hour: 7,
-                color: '#aeaeae'
-                }, {
-                hour: 12,
-                color: '#d4d6d7'
+                // }, {
+                // hour: 3,
+                // color: '#b68585'
+                // }, {
+                // hour: 14,
+                // color: 'yellow'
+                // }, {
+                // hour: 4,
+                // color: 'blue'
+                // }, {
+                // hour: 7,
+                // color: '#aeaeae'
+                // }, {
+                // hour: 12,
+                // color: '#d4d6d7'
                 }];
             }
 ////////////////////////////////if needed use these//////////////////////////////////////
