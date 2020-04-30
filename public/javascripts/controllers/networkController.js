@@ -30,7 +30,7 @@ app.controller('networkController', function($scope, networkService) {
 
     // this function provides the benefits given a issuer id and age 
     $scope.cont_benefitperid = function(){networkService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.benefitperid = data;});};
-    $scope.cont_metallevelrate = function(){networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.metallevelrate = data;});};
+    // $scope.cont_metallevelrate =  function(){networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.metallevelrate = data;console.log("I got binded", $scope.metallevelrate);});};
 
 //----------------------------------------------Get Data From the services------------------------------------------------
     $scope.networkSelection = function(){
@@ -78,6 +78,7 @@ app.controller('networkController', function($scope, networkService) {
         // feed data in the card display first and then add a function within the calls 
         console.log($scope.selectedIssuerID,$scope.selectedAge.Age)
         
+        // $scope.cont_metallevelrate();
         $scope.feeddata();
 
 
@@ -120,10 +121,15 @@ app.controller('networkController', function($scope, networkService) {
 
 
         // random test for cards
-    $scope.feeddata = function(){
-        $scope.cont_metallevelrate();
-        console.log($scope.metallevelrate);
-    }
+    $scope.feeddata = async function(){
+        // var cont_metallevelrate =  function(){networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.metallevelrate = data;console.log("I got binded", $scope.metallevelrate);});};
+        var metaldata = {};
+        var metallevelrate = await (networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){metaldata =data;console.log(data);}));
+         
+        // cont_metallevelrate().then(function(){console.log("I got binded", $scope.metallevelrate);});
+        // var waits = await $scope.cont_metallevelrate();
+        console.log(metaldata);
+    };
         
     $scope.carddisplay= function() {
                 $scope.sensorList = [{
