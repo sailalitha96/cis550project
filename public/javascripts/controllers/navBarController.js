@@ -4,6 +4,7 @@ app.controller("navBarController",navbarController = function navbarController($
     
     $scope.homePage = '/home';
     $scope.networkPage = '/network';
+    $scope.dentalPage = '/dental';
 
 
 
