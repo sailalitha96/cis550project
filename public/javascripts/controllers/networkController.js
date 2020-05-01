@@ -60,7 +60,7 @@ app.controller('networkController', function($scope, networkService) {
 
     };
 
-    $scope.GetDetails_Graph = function (index) {
+    $scope.GetDetails_Graph = async function (index) {
         // function - takes the information from the  rate information displayed extracts them to scorp values (handling lag)
         // invokes the create barchart function to get a graph 
 
@@ -79,9 +79,10 @@ app.controller('networkController', function($scope, networkService) {
         console.log($scope.selectedIssuerID,$scope.selectedAge.Age)
         
         // $scope.cont_metallevelrate();
-        $scope.feeddata();
+        console.log("About to enter feeddata")
+        var finish_metallevel = await ($scope.feeddata());
 
-
+        console.log(" Completed feeddata")
 
 
         // $scope.carddisplay();
@@ -121,46 +122,51 @@ app.controller('networkController', function($scope, networkService) {
 
 
         // random test for cards
-    $scope.feeddata = async function(){
-        // var cont_metallevelrate =  function(){networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.metallevelrate = data;console.log("I got binded", $scope.metallevelrate);});};
-        var metaldata = {};
-        var carddata = []
-        var metallevelrate = await (networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){metaldata =data;console.log(data);}));
-         
-        // cont_metallevelrate().then(function(){console.log("I got binded", $scope.metallevelrate);});
-        // var waits = await $scope.cont_metallevelrate();
-        var colorpalet = { "High" :'gray' , "Low":'beige', "Bronze":'bronze', "Silver":'silver',"Catastrophic":'darkcyan','Gold':'Metallic Gold'};
-        console.log(metaldata);
-        console.log("For loop");
-        // iterate through the metaldata to get info on card 
-        for ( var key in metaldata){
-            var tmp={}
-            tmp['level'] = metaldata[key].MetalLevel;
-            metaldata[key]['color'] = colorpalet[metaldata[key].MetalLevel];
-            
-            // tmp['premium'] = metaldata[key].premium;
-            // tmp['avgcopay1'] = metaldata[key].AvgCopayInTier1;
-            // tmp['avgcopaynet']= metaldata[key].AvgCopayOutofNet;
-            // tmp['avgcoins1']= metaldata[key].AvgCoinsInTier1;
-            // tmp['avgcoinsnet']= metaldata[key].AvgCoinsOutofNet;
-            // carddata.push(tmp);
-        }
-        // // console.log(metaldata);
-        // console.log(carddata)
-        $scope.sensorList = metaldata;
-        console.log($scope.sensorList);
-    };
-        
+        $scope.feeddata = async function(){
+            // var cont_metallevelrate =  function(){networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.metallevelrate = data;console.log("I got binded", $scope.metallevelrate);});};
+            var metaldata = {};
+            var carddata = []
+            var metallevelrate = await (networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){metaldata =data;console.log(data);}));
+                
+            // cont_metallevelrate().then(function(){console.log("I got binded", $scope.metallevelrate);});
+            // var waits = await $scope.cont_metallevelrate();
+            var colorpalet = { "High" :'gray' , "Low":'beige', "Bronze":'bronze', "Silver":'silver',"Catastrophic":'darkcyan','Gold':'Metallic Gold'};
+            // console.log(metaldata);
+            // console.log("For loop");
+            // iterate through the metaldata to get info on card 
+            for ( var key in metaldata){
+                var tmp={}
+                tmp['level'] = metaldata[key].MetalLevel;
+                metaldata[key]['color'] = colorpalet[metaldata[key].MetalLevel];
+                
+                // tmp['premium'] = metaldata[key].premium;
+                // tmp['avgcopay1'] = metaldata[key].AvgCopayInTier1;
+                // tmp['avgcopaynet']= metaldata[key].AvgCopayOutofNet;
+                // tmp['avgcoins1']= metaldata[key].AvgCoinsInTier1;
+                // tmp['avgcoinsnet']= metaldata[key].AvgCoinsOutofNet;
+                // carddata.push(tmp);
+            }
+            // // console.log(metaldata);
+            // console.log(carddata)
+            $scope.$apply(function() {
+                console.log("I went into apply function");
+                $scope.sensorList = metaldata;})
+
+            console.log($scope.sensorList);
+
+
+        };
+                
     $scope.Get_metalgraphs = function(value){
         console.log(value);
         var data = {
             header: ["Name", "Number"],
         rows: [
             ["Premium", value.premium ],
-            ["Avg Copay", value.avgcopay1 ],
-            ["Avg Coinsurance", value.avgcoins1],
-            ["Avg Copay Out of Net", value.avgcopaynet ],
-            ["Avg Coinsurance Out of Net", value.avgcoinsnet ],
+            ["Avg Copay", value.AvgCopayInTier1 ],
+            ["Avg Coinsurance", value.AvgCoinsInTier1],
+            ["Avg Copay Out of Net", value.AvgCopayOutofNet ],
+            ["Avg Coinsurance Out of Net", value.AvgCoinsOutofNet ],
 
         ]};
 
@@ -179,7 +185,7 @@ app.controller('networkController', function($scope, networkService) {
 
 
         // draw
-        chart.container("donughtchartrates");
+        chart.container("donughtchartrates".concat(value.MetalLevel));
         chart.draw();
 
     };
