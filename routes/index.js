@@ -8,6 +8,7 @@ var router = express.Router();
 var htmlLoader = require('../backend-controllers/htmlLoader.js');
 var authController = require('../backend-controllers/authentication');
 var networkController = require('../backend-controllers/network.js');
+var dentalController = require('../backend-controllers/dental.js');
 
 
 
@@ -21,9 +22,10 @@ router.get('/home', authController.secured, htmlLoader.home);
 
 router.get('/navBar', htmlLoader.navBar);
 router.get('/network',htmlLoader.network);
+router.get('/dental',htmlLoader.dental);
 
 
-/* ---------------------------------------------------- Network ----------------------------------------------------*/
+/* ------------------------------------------------------ Network ------------------------------------------------------*/
 
 
 router.get('/network_backend_states/', networkController.getList);
@@ -32,6 +34,16 @@ router.get('/network_backend_q1/state/', networkController.q1list);
 router.get('/network_backend_avgrate/issuerid/:issuerid/age/:age', networkController.getAvgratescopay);
 router.get('/network_backend_benefitname/issuerid/:issuerid/age/:age', networkController.getbenefitname);
 router.get('/network_backend_metalrate/issuerid/:issuerid/age/:age', networkController.getmetallevelrates);
+
+/* ------------------------------------------------------ Dental ------------------------------------------------------*/
+
+
+router.get('/dental_backend_states/', dentalController.getList);
+router.get('/dental_backend_ages/', dentalController.getagedistinct);
+router.get('/dental_backend_q1/state/', dentalController.q1list);
+router.get('/dental_backend_avgrate/issuerid/:issuerid/age/:age', dentalController.getAvgratescopay);
+router.get('/dental_backend_benefitname/issuerid/:issuerid/age/:age', dentalController.getbenefitname);
+router.get('/dental_backend_metalrate/issuerid/:issuerid/age/:age', dentalController.getmetallevelrates);
 
 /* ---------------------------------------------------- Authentication ----------------------------------------------------*/
 
