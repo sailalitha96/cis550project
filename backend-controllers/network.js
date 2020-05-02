@@ -107,7 +107,7 @@ exports.getList = function(req, res) {
       SUM(bcs.CoinsInnTier1) AS CoinsInTier1 ,
       SUM(bcs.CoinsOutofNet) AS CoinsOutofNet
       FROM bcs
-      JOIN (SELECT DISTINCT(rate.PlanId) as plan_Id FROM rate WHERE rate.Age LIKE '%23%' AND rate.IssuerId = 12303) R1 ON  bcs.StandardComponentId = R1.plan_Id
+      JOIN (SELECT DISTINCT(rate.PlanId) as plan_Id FROM rate WHERE rate.Age =${age}  AND rate.IssuerId = ${issuerid}) R1 ON  bcs.StandardComponentId = R1.plan_Id
       GROUP BY bcs.StandardComponentId,bcs.PlanId
       ) bcs_id 
       ON pcw.PlanID_2018 = bcs_id.s_Id

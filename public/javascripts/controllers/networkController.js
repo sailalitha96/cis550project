@@ -130,7 +130,7 @@ app.controller('networkController', function($scope, networkService) {
                 
             // cont_metallevelrate().then(function(){console.log("I got binded", $scope.metallevelrate);});
             // var waits = await $scope.cont_metallevelrate();
-            var colorpalet = { "High" :'gray' , "Low":'beige', "Bronze":'bronze', "Silver":'silver',"Catastrophic":'darkcyan','Gold':'Metallic Gold'};
+            var colorpalet = { "High" :'IndianRed' , "Low":'beige', "Bronze":'Peru', "Silver":'silver',"Catastrophic":'darkcyan','Gold':'DarkGoldenRod'};
             // console.log(metaldata);
             // console.log("For loop");
             // iterate through the metaldata to get info on card 
