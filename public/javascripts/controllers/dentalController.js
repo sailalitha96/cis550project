@@ -1,11 +1,11 @@
-app.controller('dentalController', function($scope, dentalService) {
+app.controller('dentalController', function($scope, dentalService,newsService) {
 
     //----------------------------------------------Page view configurations------------------------------------------------
   
     $scope.selectedState = "";
     $scope.selectedAge = "";
     $scope.selectedIssuerID = "";
-
+    $scope.topNewsLimit = 5;
     // for the charts 
 
     // $scope.width = 600;
@@ -60,7 +60,7 @@ app.controller('dentalController', function($scope, dentalService) {
 
     };
 
-    $scope.GetDetails_Graph = function (index) {
+    $scope.GetDetails_Graph = async function (index) {
         // function - takes the information from the  rate information displayed extracts them to scorp values (handling lag)
         // invokes the create barchart function to get a graph 
 
@@ -79,9 +79,12 @@ app.controller('dentalController', function($scope, dentalService) {
         console.log($scope.selectedIssuerID,$scope.selectedAge.Age)
         
         // $scope.cont_metallevelrate();
-        $scope.feeddata();
+        // $scope.feeddata();
+        var finish_metallevel = await ($scope.feeddata());
 
+        // lets display news 
 
+        newsService.topSportsNews($scope.selectedState,$scope.topNewsLimit).then(function(data){$scope.topNews= data;});
 
 
         // $scope.carddisplay();
@@ -129,7 +132,9 @@ app.controller('dentalController', function($scope, dentalService) {
          
         // cont_metallevelrate().then(function(){console.log("I got binded", $scope.metallevelrate);});
         // var waits = await $scope.cont_metallevelrate();
-        var colorpalet = { "High" :'gray' , "Low":'beige', "Bronze":'bronze', "Silver":'silver',"Catastrophic":'darkcyan','Gold':'Metallic Gold'};
+        // var colorpalet = { "High" :'gray' , "Low":'beige', "Bronze":'bronze', "Silver":'silver',"Catastrophic":'darkcyan','Gold':'Metallic Gold'};
+
+        var colorpalet = { "High" :'IndianRed' , "Low":'beige', "Bronze":'Peru', "Silver":'silver',"Catastrophic":'darkcyan','Gold':'DarkGoldenRod'};
         console.log(metaldata);
         console.log("For loop");
         // iterate through the metaldata to get info on card 
@@ -147,8 +152,14 @@ app.controller('dentalController', function($scope, dentalService) {
         }
         // // console.log(metaldata);
         // console.log(carddata)
-        $scope.sensorList = metaldata;
+
+        $scope.$apply(function() {
+            console.log("I went into apply function");
+            $scope.sensorList = metaldata;})
+
         console.log($scope.sensorList);
+        // $scope.sensorList = metaldata;
+        // console.log($scope.sensorList);
     };
         
     $scope.Get_metalgraphs = function(value){
@@ -157,10 +168,10 @@ app.controller('dentalController', function($scope, dentalService) {
             header: ["Name", "Number"],
         rows: [
             ["Premium", value.premium ],
-            ["Avg Copay", value.avgcopay1 ],
-            ["Avg Coinsurance", value.avgcoins1],
-            ["Avg Copay Out of Net", value.avgcopaynet ],
-            ["Avg Coinsurance Out of Net", value.avgcoinsnet ],
+            ["Avg Copay", value.AvgCopayInTier1 ],
+            ["Avg Coinsurance", value.AvgCoinsInTier1],
+            ["Avg Copay Out of Net", value.AvgCopayOutofNet ],
+            ["Avg Coinsurance Out of Net", value.AvgCoinsOutofNet ],
 
         ]};
 
@@ -179,7 +190,9 @@ app.controller('dentalController', function($scope, dentalService) {
 
 
         // draw
-        chart.container("donughtchartrates");
+        // chart.container("donughtchartrates");
+        chart.container("donughtchartrates".concat(value.MetalLevel));
+
         chart.draw();
 
     };

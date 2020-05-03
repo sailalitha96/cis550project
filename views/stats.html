@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dental Plans</title>
+    <title>Network Plans</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Bootstrap core CSS -->
@@ -23,10 +23,10 @@
     <!--Main Navigation-->
     <header>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
-        <navbar page="dental"></navbar>
+        <navbar page="network"></navbar>
     </header>
     <!--Main Navigation-->
-    <main ng-controller="dentalController">
+    <main ng-controller="statsController">
         <br>
         <br>
         <br>
@@ -90,32 +90,31 @@
         <!-- In this show the value from cont_avgrateperidSelection() , clicks on Visualize to get graphs -->
         <div ng-show="issuerflag&& ageflag">
             <table  width="80%" >     
-                <thead style="text-align:center">           
-                    <tr>
-                        <!-- <th>NumPlans</th> -->
-                        <th> Avg Premimum</th>
-                        <th> Avg Copay</th>
-                        <th> Avg Coinsurance</th>
-                        <th>Visualize</th>
+            <thead style="text-align:center">           
+                <tr>
+                    <!-- <th>NumPlans</th> -->
+                    <th> Avg Premimum</th>
+                    <th> Avg Copay</th>
+                    <th> Avg Coinsurance</th>
+                    <th>Visualize</th>
 
-                    </tr>
-                </thead>
-                <tbody  style="text-align:center">
-                    <tr data-ng-repeat="data in avgrateperid">
-                        <!-- <td >{{ data.NumPlans}}</td> -->
-                        <td >{{ data.Avg_Premium}}</td>
-                        <td >{{ data.Avg_Copay}}</td>
-                        <td >{{ data.Avg_Coinsurance}}</td>
-                        <td><input type="button" value="Visualize" ng-click="GetDetails_Graph($index)" ng-model="graph" ng-change="GetDetails_Graph($index)"/></td>
-                    </tr>
-                </tbody>
+                </tr>
+            </thead>
+            <tbody  style="text-align:center">
+                <tr data-ng-repeat="data in avgrateperid">
+                    <!-- <td >{{ data.NumPlans}}</td> -->
+                    <td >{{ data.Avg_Premium}}</td>
+                    <td >{{ data.Avg_Copay}}</td>
+                    <td >{{ data.Avg_Coinsurance}}</td>
+                    <td><input type="button" value="Visualize" ng-click="GetDetails_Graph($index)" ng-model="graph" ng-change="GetDetails_Graph($index)"/></td>
+                </tr>
+            </tbody>
             </table>
             <div id="chartscustom" align="center">
                 <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
                 <div id="piechartrates" style="width: 500px; height: 400px"></div>
                 </style>
             </div>
-            
 
             <!-- We try to display a card for metal levels -->
 
@@ -123,7 +122,7 @@
                     .cards{
                         display: grid;
                         grid-gap: 1em;
-                        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                        grid-template-columns: repeat(3, minmax(500px, 1fr));
                         /* grid-template-rows: repeat(4, 1fr); */ 
                     }
                     .card {
@@ -155,18 +154,20 @@
                         text-align: center;
                         }
                 </style>
-
+                
                 <div class="cards">
                     <div class="card" ng-repeat="sensor in sensorList" ng-style="{'background':sensor.color}">
                         <!-- <div class="bg-img"></div> -->
                             <div class="content">
                                 <h4>{{sensor.MetalLevel}}</h4>
                                     <p> To Know more about the {{sensor.MetalLevel}} level Statistics such as Co-Pay and Co-Insurance click Below </p>  
-                                    <button ng-click="Get_metalgraphs(sensor)" ng-model="m_graph" ng-change="Get_metalgraphs(sensor)">Visualize</button> </div>
+                                    <button ng-click="Get_metalgraphs(sensor)" ng-model="m_graph" ng-change="Get_metalgraphs(sensor)">Visualize</button> 
+                            </div>
                                     <!-- <div id="chartscustom" align="center"> -->
                                         <div class="content">
-                                        <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
-                                        <div id="donughtchartrates{{sensor.MetalLevel}}" style="width: 200px; height: 300px"></div></div>
+                                            <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+                                            <div id="donughtchartrates{{sensor.MetalLevel}}"style="width: 400px; height: 300px; position: relative"></div>
+                                        </div>
                             <!-- </div> -->
                                     <!-- <div class="card">...</div>
                                     <div class="card">...</div> -->
@@ -176,36 +177,6 @@
                 <div>Hours: {{ sensor.hour }}</div>
                  </div></div> -->
             <!-- </div> -->
-
-            <!-- display news  -->
-            <div class="cards">
-            <div class="col-lg-3 col-md-12 mb-3" ng-repeat="news in topNews">
-
-                <!-- news image -->
-                <!--Card-->
-                <div class="card">
-
-                    <!--Card image-->
-                    <div class="view">
-                        <img ng-src="{{news.urlToImage}}" width="100%" height=130 class="card-img-top" alt="photo">
-                        <a href={{news.url}}>
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
-                    </div>
-
-                    <!--Card content-->
-                    <div class="card-body">
-                        <!--Title-->
-                        <h4 class="card-title">{{news.source.name}}</h4>
-                        <!--Text-->
-                        <p class="card-text">{{news.title}}</p>
-                    </div>
-
-                </div>
-                <!--/.Card-->
-
-            </div></div>
-            
         </div> 
         
         <!-- Get a pie chart -->
@@ -265,13 +236,12 @@
     <script src="javascripts/healthcare.js"></script>
 
     <!--Controller-->
-    <script src="javascripts/controllers/dentalController.js"></script>
+    <script src="javascripts/controllers/networkController.js"></script>
     <script src="javascripts/controllers/navBarController.js"></script>
 
     <!--Services-->
-    <script src="javascripts/services/dentalService.js"></script>
+    <script src="javascripts/services/networkService.js"></script>
     <script src="javascripts/services/userInfoService.js"></script>
-    <script src="javascripts/services/newsService.js"></script>
 
 
 </body>

@@ -177,6 +177,34 @@
                 <div>Hours: {{ sensor.hour }}</div>
                  </div></div> -->
             <!-- </div> -->
+
+                <div class="cards">
+                    <div class="col-lg-3 col-md-12 mb-3" ng-repeat="news in topNews">
+    
+                    <!-- news image -->
+                    <!--Card-->
+                    <div class="card">
+    
+                        <!--Card image-->
+                        <div class="view">
+                            <img ng-src="{{news.urlToImage}}" width="100%" height=130 class="card-img-top" alt="photo">
+                            <a href={{news.url}}>
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+    
+                        <!--Card content-->
+                        <div class="card-body">
+                            <!--Title-->
+                            <h4 class="card-title">{{news.source.name}}</h4>
+                            <!--Text-->
+                            <p class="card-text">{{news.title}}</p>
+                        </div>
+    
+                    </div>
+                    <!--/.Card-->
+    
+                </div></div>
         </div> 
         
         <!-- Get a pie chart -->
@@ -242,6 +270,7 @@
     <!--Services-->
     <script src="javascripts/services/networkService.js"></script>
     <script src="javascripts/services/userInfoService.js"></script>
+    <script src="javascripts/services/newsService.js"></script>
 
 
 </body>

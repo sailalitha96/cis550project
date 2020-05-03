@@ -1,10 +1,11 @@
-app.controller('networkController', function($scope, networkService) {
+app.controller('networkController', function($scope, networkService,newsService) {
 
     //----------------------------------------------Page view configurations------------------------------------------------
   
     $scope.selectedState = "";
     $scope.selectedAge = "";
     $scope.selectedIssuerID = "";
+    $scope.topNewsLimit = 6;
 
     // for the charts 
 
@@ -83,6 +84,8 @@ app.controller('networkController', function($scope, networkService) {
         var finish_metallevel = await ($scope.feeddata());
 
         console.log(" Completed feeddata")
+
+        newsService.topSportsNews($scope.selectedState,$scope.topNewsLimit).then(function(data){$scope.topNews= data;});
 
 
         // $scope.carddisplay();
