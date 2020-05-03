@@ -93,7 +93,10 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter);
 
 
-
+const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
+const WebSearchAPIClient = require('azure-cognitiveservices-websearch');
+let credentials = new CognitiveServicesCredentials('6e21cb64c21c4dc1b3816ab33e024e2b');
+let webSearchApiClient = new WebSearchAPIClient(credentials);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

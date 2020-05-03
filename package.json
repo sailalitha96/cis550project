@@ -9,6 +9,8 @@
   "dependencies": {
     "angular-chart.js": "^1.1.1",
     "angular-news-api": "0.0.7",
+    "azure-cognitiveservices-entitysearch": "^2.0.0",
+    "azure-cognitiveservices-websearch": "^2.0.0",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
@@ -20,6 +22,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
+    "ms-rest-azure": "^3.0.0",
     "mysql": "^2.17.1",
     "passport": "^0.4.0",
     "passport-auth0": "^1.3.0"

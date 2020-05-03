@@ -5,7 +5,7 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
     $scope.selectedState = "";
     $scope.selectedAge = "";
     $scope.selectedIssuerID = "";
-    $scope.topNewsLimit = 5;
+    $scope.topNewsLimit = 6;
     // for the charts 
 
     // $scope.width = 600;
