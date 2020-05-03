@@ -5,7 +5,8 @@ app.controller("navBarController",navbarController = function navbarController($
     $scope.homePage = '/home';
     $scope.networkPage = '/network';
     $scope.dentalPage = '/dental';
-
+    $scope.benefitPage = '/dental';
+    $scope.nationalPage = '/national';
 
 
     //----------------------------------------------Get Data From the services(Create chart for countries)------------------------------------------------
