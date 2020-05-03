@@ -45,3 +45,7 @@ exports.network = function(req, res, next) {
 exports.dental = function(req, res, next) {  
     res.sendFile( view_path +'/dental.html');
 };
+
+exports.benefit = function(req, res, next) {  
+    res.sendFile( view_path +'/benefit.html');
+};

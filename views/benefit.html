@@ -2,7 +2,13 @@
 <html lang="en">
 
 <head>
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="stylesheets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="stylesheets/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="stylesheets/css/style.css" rel="stylesheet">
 </head>
 
 <body ng-app="Healthcare">
@@ -19,21 +25,14 @@
         <br>
     <div class="col-lg-3 col-md-12 mb-3">
         <div class="row">
-          <!-- <div class="col-md-1"></div> -->
           <div class="col-md-6">
           <div class="grey-text" style="margin-left: 20px">Select State Code</div>
           <div class="dropdown-container">
             <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.StateCode for network in networks">
             <option value=""> {{selectedState}} </option>  </select>
         </div>
-          <!-- <p>{{selectedState}}</p> -->
-            </div>
-         <!-- </div> -->
-    <!-- </div>
-    <br>
-    <div class="col-lg-3 col-md-12 mb-3"> -->
-        <!-- <div class="row"> -->
-          <!-- <div class="col-md-1"></div> -->
+    </div>
+
           <div class="col-md-6">
           <div class="grey-text" style="margin-left: 20px">Select Age</div>
           <div class="dropdown-container">
@@ -46,22 +45,31 @@
     </div>
 
     <!-- Display benefits per ID  -->
+    <div class="row">
+        <div class="column">
+        
+    
             <table  width="80%" >     
                 <thead style="text-align:center">           
                     <tr>
                         <th>Benefits</th>
-                        <th>Network Name</th>
-                        <th>Network URL</th> -->
+                        <!-- <th>Network Name</th> -->
+                        <!-- <th>Network URL</th>  -->
                     </tr>
                 </thead>
                 <tbody  style="text-align:center">
                     <tr data-ng-repeat="data in benefitperid">
-                        <td >{{ data.Benefits}}</td>
-                        <td style="width:70%">{{ data.NetworkName}}</td>
-                        <td style="width:70%">{{ data.neturl}}</td> -->
-                    </tr> -->
-                </tbody> -->
-            </table> --> 
+                        <td ><a href="" ng-click=setValue(data.Benefits)>{{ data.Benefits}}</a></td>
+                        <!-- <td style="width:70%">{{ data.NetworkName}}</td> -->
+                        <!-- <td style="width:70%">{{ data.neturl}}</td> --> 
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+
+        <div class="column"></div>
+
+    </div>
 
     <!-- SCRIPTS -->
     <!-- JQuery -->
@@ -83,6 +91,10 @@
     <!--Services-->
     <script src="javascripts/services/userInfoService.js"></script>
     <script src="javascripts/services/networkService.js"></script>
+    <script src="javascripts/services/searchService.js"></script>
+    <script src="javascripts/services/benefitService.js"></script>
+
+
 
 </body>
 

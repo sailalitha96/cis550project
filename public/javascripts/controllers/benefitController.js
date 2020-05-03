@@ -1,4 +1,5 @@
-app.controller('networkController', function($scope, networkService,newsService) {
+// const searchGoogle = require('./searchGoogle');
+app.controller('benefitController', function($scope, networkService,benefitService) {
 
     //----------------------------------------------Page view configurations------------------------------------------------
   
@@ -19,6 +20,7 @@ app.controller('networkController', function($scope, networkService,newsService)
     //Get the sport data in the $scope.sport variable
 
     $scope.selectedState = localStorage.getItem('state');
+    $scope.selectedIssuerID = localStorage.getItem('issuerid');
     console.log($scope.selectedState);
     networkService.networkList().then(function(data){$scope.networks= data;}); 
     //$scope.stateid = networkService.getState();
@@ -26,7 +28,7 @@ app.controller('networkController', function($scope, networkService,newsService)
     networkService.agelist().then(function(data){$scope.agelists= data;});
 
     // this function provides the benefits given a issuer id and age 
-    $scope.cont_benefitperid = function(){networkService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.benefitperid = data;});};
+    $scope.cont_benefitperid = function(){benefitService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.benefitperid = data;});};
 
 //----------------------------------------------Get Data From the services------------------------------------------------
     $scope.networkSelection = function(){
@@ -46,5 +48,16 @@ app.controller('networkController', function($scope, networkService,newsService)
 
     };
 
+    $scope.setValue= function(benefitname){
+        console.log(benefitname);
 
+        var client_obj = benefitService.benefits_client();
+        // const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
+        // const WebSearchAPIClient = require('azure-cognitiveservices-websearch');
+        // let credentials = new CognitiveServicesCredentials('6e21cb64c21c4dc1b3816ab33e024e2b');
+        // let webSearchApiClient = new WebSearchAPIClient(credentials);
+            // <script src="javascripts/services/searchService.js"></script>
+        console.log(client_obj);
+        // searchService.bingsearch(benefitname,client_obj);
+        }
 });

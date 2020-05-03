@@ -9,6 +9,7 @@ var htmlLoader = require('../backend-controllers/htmlLoader.js');
 var authController = require('../backend-controllers/authentication');
 var networkController = require('../backend-controllers/network.js');
 var dentalController = require('../backend-controllers/dental.js');
+var benefitController = require('../backend-controllers/benefit.js');
 
 
 
@@ -23,6 +24,8 @@ router.get('/home', authController.secured, htmlLoader.home);
 router.get('/navBar', htmlLoader.navBar);
 router.get('/network',htmlLoader.network);
 router.get('/dental',htmlLoader.dental);
+router.get('/benefit',htmlLoader.benefit);
+
 
 
 /* ------------------------------------------------------ Network ------------------------------------------------------*/
@@ -45,7 +48,13 @@ router.get('/dental_backend_avgrate/issuerid/:issuerid/age/:age', dentalControll
 router.get('/dental_backend_benefitname/issuerid/:issuerid/age/:age', dentalController.getbenefitname);
 router.get('/dental_backend_metalrate/issuerid/:issuerid/age/:age', dentalController.getmetallevelrates);
 
+
 /* ---------------------------------------------------- Authentication ----------------------------------------------------*/
+
+
+router.get('/benefit_backend_benefitname/issuerid/:issuerid/age/:age', dentalController.getbenefitname);
+router.get('/benefit_backend', dentalController.getclient);
+
 
 router.get('/login',authController.loginAuth,authController.loginRedirect);
 router.get('/callback',authController.callback);

@@ -47,6 +47,7 @@ app.controller('networkController', function($scope, networkService,newsService)
         $scope.ageflag= true;
         $scope.query1();
         console.log($scope.selectedAge);
+
     };
 
  
@@ -58,6 +59,9 @@ app.controller('networkController', function($scope, networkService,newsService)
         $scope.issuerflag= true;
         $scope.cont_avgrateperid($scope.avgrateperid);
         // $scope.cont_benefitperid();
+
+        localStorage.setItem('issuerid', $scope.q1[index].IssuerId);
+        window.open("/benefit");
 
     };
 
