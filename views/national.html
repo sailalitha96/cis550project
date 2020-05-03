@@ -38,7 +38,7 @@
           <div class="dropdown-container">
             <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.State for network in networks">
             <option value=""> {{selectedState}} </option>  </select>
-        </div>
+                </div>
           <!-- <p>{{selectedState}}</p> -->
             </div>
          <!-- </div> -->
@@ -47,11 +47,11 @@
     <div class="col-lg-3 col-md-12 mb-3"> -->
         <!-- <div class="row"> -->
           <!-- <div class="col-md-1"></div> -->
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
           <div class="grey-text" style="margin-left: 20px">Select Age</div>
           <div class="dropdown-container">
             <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists">
-            <option value=""> Select Age </option>  </select>
+            <option value=""> Select Age </option>  </select> -->
         </div>
           
         </div>
@@ -66,7 +66,7 @@
         }
     </style>
     <!-- Display more information only when main menus are created -->
-    <div ng-show="ageflag">
+    <div ng-show="stateflag">
         <table  width="80%" >     
         <thead style="text-align:center">           
             <tr>

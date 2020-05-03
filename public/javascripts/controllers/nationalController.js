@@ -15,10 +15,27 @@ app.controller('nationalController', function($scope, nationalService) {
     $scope.selectedState = localStorage.getItem('state');
     console.log($scope.selectedState);
     nationalService.statelist().then(function(data){$scope.networks= data;}); 
+
+    // create a dict 
+    var colordict ={}
+    for (i = 1; i <= 51; i++) {
+        if (i<=10)
+            {colordict[i]='darkcyan'} 
+        else if  (i>10 && i<=20)
+        {colordict[i]='green'}
+        else if (i>20 && i<=30)
+        {colordict[i]='yellow'}
+        else if (i>30 && i<=40)
+        {colordict[i]='orange'}
+        else if(i>40)
+        {colordict[i]='red'}
+
+    }
+    $scope.colordict = colordict;
     //$scope.stateid = networkService.getState();
     
-    nationalService.agelist().then(function(data){$scope.agelists= data;});
-    $scope.query1 = function(){nationalService.querylist1($scope.selectedState).then(function(data){$scope.q1 = data;});};
+    // nationalService.agelist().then(function(data){$scope.agelists= data;});
+    // $scope.query1 = function(){nationalService.querylist1($scope.selectedState).then(function(data){$scope.q1 = data;});};
 
     // this is the second query which gives (given a issuer id , state and age) - provides the average rate of perimuims , no of plans , avg copay and stuff 
     // $scope.cont_avgrateperid = function(){networkService.service_avgrateperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.avgrateperid = data;});};
@@ -27,22 +44,67 @@ app.controller('nationalController', function($scope, nationalService) {
     // $scope.cont_benefitperid = function(){networkService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.benefitperid = data;});};
     // $scope.cont_metallevelrate =  function(){networkService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.metallevelrate = data;console.log("I got binded", $scope.metallevelrate);});};
 
+
+    // given the state return the things for various headers.
+    nationalService.cont_stateinfo = function(){nationalService.ser_stateinfo($scope.selectedState).then(function(data){$scope.states_info = data;});};
+
 //----------------------------------------------Get Data From the services------------------------------------------------
-    $scope.networkSelection = function(){
+    $scope.networkSelection = async function(){
         // function records the selectedState value (global)
  
-        $scope.query1();
+        // $scope.query1();
         $scope.stateflag= true;
         // console.log($scope.q1);
-    };
-    $scope.ageSelection = function(){
-        // function records the selectedAge value(gloabl) within this controller 
-        console.log($scope.selectedState);
-        $scope.ageflag= true;
-        $scope.query1();
-        console.log($scope.selectedAge);
+        var states_info ={}
+        var fn = await (nationalService.ser_stateinfo($scope.selectedState).then(function(data){states_info = data;}));
 
+        var colordict ={}
+        for (i = 1; i <= 51; i++) {
+            if (i<=10)
+                {colordict[i]='darkcyan'} 
+            else if  (i>10 && i<=20)
+            {colordict[i]='green'}
+            else if (i>20 && i<=30)
+            {colordict[i]='yellow'}
+            else if (i>30 && i<=40)
+            {colordict[i]='orange'}
+            else if(i>40)
+            {colordict[i]='red'}
+    
+        }
+        for ( var key in states_info){
+            // var tmp={}
+            var rank_color = colordict[states_info[key].Ranks];
+            states_info[key]['rank_color'] = rank_color;
+            var nurse_rank_color = colordict[states_info[key].NursingHomeStaff];
+            states_info[key]['nurse_rank_color'] = nurse_rank_color;
+            var ahp_rank_color = colordict[states_info[key].AnnualHealthcarePremium];
+            states_info[key]['ahp_rank_color'] = ahp_rank_color;
+            var child_rank_color = colordict[states_info[key].ChildImmunization];
+            states_info[key]['child_rank_color'] = child_rank_color;
+            var doctor_rank_color = colordict[states_info[key].DoctorStaff];
+            states_info[key]['doctor_rank_color'] = doctor_rank_color;
+            var healthin_rank_color = colordict[states_info[key].HealthInsuranceCoverage];
+            states_info[key]['healthin_rank_color'] = healthin_rank_color;
+            var patientex_rank_color = colordict[states_info[key].InPatientExpense];
+            states_info[key]['patientex_rank_color'] = patientex_rank_color;
+            var infantsur_rank_color = colordict[states_info[key].InfantSurvival];
+            states_info[key]['infantsur_rank_color'] = infantsur_rank_color;
+            var selfrep_rank_color = colordict[states_info[key].SelfreportedHealthStatus];
+            states_info[key]['selfrep_rank_color'] = selfrep_rank_color;
+
+        }
+        $scope.states_info = states_info;
+        console.log($scope.states_info)
     };
+    // $scope.ageSelection = function(){
+    //     // function records the selectedAge value(gloabl) within this controller 
+    //     console.log($scope.selectedState);
+    //     $scope.ageflag= true;
+    //     $scope.query1();
+    //     console.log($scope.selectedAge);
+
+    // };
 
  
     // $scope.GetDetails_Issuer = function (index) {

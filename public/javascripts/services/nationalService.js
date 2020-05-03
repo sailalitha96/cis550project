@@ -15,15 +15,15 @@ app.factory('nationalService',function($http){
         });
     };
 
-    var querylist1 = function(state) {
-        if(typeof(state.StateCode) === "undefined"){
+    var ser_stateinfo = function(state) {
+        if(typeof(state.State) === "undefined"){
     // The property DOESN'T exists
         }else{
     // The property exists
-        state = state.StateCode;
+        state = state.State;
         }
-        return $http.get(`/network_backend_q1/state?state=${state}`).then(function(response) {
-            console.log(state);
+        return $http.get(`/national_backend_stateinfo/state?state=${state}`).then(function(response) {
+            console.log(response.data);
             return response.data;
         });
     };
@@ -69,7 +69,7 @@ app.factory('nationalService',function($http){
     statelist:statelist,
     //    networkList:networkList,
        agelist:agelist,
-       querylist1:querylist1,
+       ser_stateinfo:ser_stateinfo,
        service_avgrateperid:service_avgrateperid,
        service_benefitperid:service_benefitperid,
        service_metallevelrate:service_metallevelrate,

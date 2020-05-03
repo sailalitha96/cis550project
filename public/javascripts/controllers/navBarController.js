@@ -5,7 +5,7 @@ app.controller("navBarController",navbarController = function navbarController($
     $scope.homePage = '/home';
     $scope.networkPage = '/network';
     $scope.dentalPage = '/dental';
-    $scope.benefitPage = '/dental';
+    $scope.benefitPage = '/benefit';
     $scope.nationalPage = '/national';
 
 
