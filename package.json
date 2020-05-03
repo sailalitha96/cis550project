@@ -9,6 +9,7 @@
   "dependencies": {
     "angular-chart.js": "^1.1.1",
     "angular-news-api": "0.0.7",
+    "aws-sdk": "^2.668.0",
     "azure-cognitiveservices-entitysearch": "^2.0.0",
     "azure-cognitiveservices-websearch": "^2.0.0",
     "body-parser": "^1.19.0",
