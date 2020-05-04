@@ -25,3 +25,16 @@ exports.nat_getagedistinct = function(req, res) {
     // console.log(query);
     sql.execute(query,res);
   };
+
+ exports.nat_columns = function(req, res) {
+    var query = `SHOW COLUMNS FROM rankings;`;
+    sql.execute(query,res);
+  };
+
+  exports.nat_mapdata = function(req, res){
+    var crit = req.query.crit;
+    console.log(crit);
+    var query = `SELECT State, ${crit} FROM state_rankings;`;
+    console.log(query);
+    sql.execute(query, res);
+  };
