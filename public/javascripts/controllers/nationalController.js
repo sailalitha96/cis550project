@@ -7,6 +7,7 @@ app.controller('nationalController', function($scope, nationalService) {
     $scope.selectedIssuerID = "";
     $scope.topNewsLimit = 6;
     //$scope.selectedCriteria = "";
+    $scope.selectedCriterianame = "";
 
 
     //----------------------------------------------Get Data From the services(Create chart for countries)------------------------------------------------
@@ -14,6 +15,12 @@ app.controller('nationalController', function($scope, nationalService) {
     //Get the sport data in the $scope.sport variable
 
     $scope.selectedState = localStorage.getItem('state');
+    // location.pathname = '/national'
+    // if(localStorage.getItem('criteria'))
+    // {
+    //     $scope.selectedCriterianame = localStorage.getItem('criteria').Field;
+    // }
+    console.log(location.pathname)
     console.log($scope.selectedState);
     nationalService.statelist().then(function(data){$scope.networks= data;}); 
 
@@ -50,14 +57,43 @@ app.controller('nationalController', function($scope, nationalService) {
     nationalService.cont_stateinfo = function(){nationalService.ser_stateinfo($scope.selectedState).then(function(data){$scope.states_info = data;});};
     nationalService.ser_columns().then(function(data){$scope.agelists = data;});
 //----------------------------------------------Get Data From the services------------------------------------------------
+    $scope.networkSelection = function(){
+        // function records the selectedState value (global)
+
+        // $scope.query1();
+        $scope.stateflag= true;
+        // console.log($scope.q1);
+    };    
     $scope.criteriaSelection = function(){
         // function records the selectedAge value(gloabl) within this controller 
+
         console.log($scope.selectedCriteria);
         $scope.ageflag= true;
+        // $scope.stateflag= false;
+        // if(map)
+        // {
+        //     console.log("deleting the map");
+        //     map.dispose();
+        // }
 
     };
 
+    $scope.reloadfn = function()
+    {
+        if($scope.stateflag)
+        {   localStorage.setItem('criteria',$scope.selectedCriteria);
+            location.pathname = '/national';
+            location.reload();
+        $scope.stateflag= false}
+    };
+
     $scope.mapdata = async function(){
+
+        if(map)
+        {
+            console.log("in disposing");
+            map.dispose();
+        }
         var colordict ={}
         for (i = 1; i <= 51; i++) {
             if (i<=10)
@@ -83,7 +119,12 @@ app.controller('nationalController', function($scope, nationalService) {
              mydata.push(temp);
          }
         console.log(mydata);
-        $scope.mydata = mydata;
+        $scope.$apply(function() {
+            //console.log("I went into apply function");
+            // $scope.states_info = states_info;
+        $scope.mydata = mydata;})
+        
+
 
         var map = anychart.map();
 
@@ -106,7 +147,7 @@ app.controller('nationalController', function($scope, nationalService) {
                 .length(5);
 
 
-        var dataSet = anychart.data.set($scope.mydata);
+        var dataSet = anychart.data.set(mydata);
         // create choropleth series
         series = map.choropleth(dataSet);
         
@@ -123,9 +164,12 @@ app.controller('nationalController', function($scope, nationalService) {
 
         //set map container id (div)
         map.container('container_map');
-
-        //initiate map drawing
         map.draw();
+       
+        //initiate map drawing
+        
+        // map.dispose();
+        
     }
 
     $scope.networkSelection = async function(){
@@ -178,7 +222,9 @@ app.controller('nationalController', function($scope, nationalService) {
                 //console.log("I went into apply function");
                 $scope.states_info = states_info;})
 
-        $scope.mapdata();
+        $scope.$apply(function() {
+                //console.log("I went into apply function");
+                $scope.mapdata();})
             //console.log($scope.states_info);
 
         
