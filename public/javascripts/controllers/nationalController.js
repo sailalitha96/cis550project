@@ -6,6 +6,7 @@ app.controller('nationalController', function($scope, nationalService) {
     $scope.selectedAge = "";
     $scope.selectedIssuerID = "";
     $scope.topNewsLimit = 6;
+    //$scope.selectedCriteria = "";
 
 
     //----------------------------------------------Get Data From the services(Create chart for countries)------------------------------------------------
@@ -47,8 +48,86 @@ app.controller('nationalController', function($scope, nationalService) {
 
     // given the state return the things for various headers.
     nationalService.cont_stateinfo = function(){nationalService.ser_stateinfo($scope.selectedState).then(function(data){$scope.states_info = data;});};
-
+    nationalService.ser_columns().then(function(data){$scope.agelists = data;});
 //----------------------------------------------Get Data From the services------------------------------------------------
+    $scope.criteriaSelection = function(){
+        // function records the selectedAge value(gloabl) within this controller 
+        console.log($scope.selectedCriteria);
+        $scope.ageflag= true;
+
+    };
+
+    $scope.mapdata = async function(){
+        var colordict ={}
+        for (i = 1; i <= 51; i++) {
+            if (i<=10)
+                {colordict[i]='darkcyan'} 
+            else if  (i>10 && i<=20)
+            {colordict[i]='green'}
+            else if (i>20 && i<=30)
+            {colordict[i]='yellow'}
+            else if (i>30 && i<=40)
+            {colordict[i]='orange'}
+            else if(i>40)
+            {colordict[i]='red'}
+    
+        }
+        var ranking_maps_data = {}
+        var localcrit = $scope.selectedCriteria.Field;
+        var fn = await (nationalService.ser_mapdata(localcrit).then(function(data){ranking_maps_data = data;}));
+        var mydata = []
+         for (var key in ranking_maps_data){
+             var str1 = "US.";
+             localcrit = localcrit.split(' ').join(''); 
+             var temp = {"id":str1.concat(ranking_maps_data[key].State),"value":ranking_maps_data[key][localcrit]}
+             mydata.push(temp);
+         }
+        console.log(mydata);
+        $scope.mydata = mydata;
+
+        var map = anychart.map();
+
+        var colorRange = map.colorRange();
+        colorRange.enabled(true)
+                .padding([20, 0, 0, 0])
+                .colorLineSize(10)
+                .stroke('#B9B9B9')
+                .labels({'padding': 3})
+                .labels({'size': 7});
+        colorRange.ticks()
+                .enabled(true)
+                .stroke('#B9B9B9')
+                .position('outside')
+                .length(10);
+        colorRange.minorTicks()
+                .enabled(true)
+                .stroke('#B9B9B9')
+                .position('outside')
+                .length(5);
+
+
+        var dataSet = anychart.data.set($scope.mydata);
+        // create choropleth series
+        series = map.choropleth(dataSet);
+        
+        series.colorScale(anychart.scales.linearColor('red', 'orange', 'yellow', 'green'));
+        // set geoIdField to 'id', this field contains in geo data meta properties
+        series.geoIdField('id');
+
+
+        series.hovered().fill('#addd8e');
+
+        // set geo data, you can find this map in our geo maps collection
+        // https://cdn.anychart.com/#maps-collection
+        map.geoData(anychart.maps['united_states_of_america']);
+
+        //set map container id (div)
+        map.container('container_map');
+
+        //initiate map drawing
+        map.draw();
+    }
+
     $scope.networkSelection = async function(){
         // function records the selectedState value (global)
  
@@ -94,9 +173,30 @@ app.controller('nationalController', function($scope, nationalService) {
             states_info[key]['selfrep_rank_color'] = selfrep_rank_color;
 
         }
-        $scope.states_info = states_info;
-        console.log($scope.states_info)
+
+        $scope.$apply(function() {
+                //console.log("I went into apply function");
+                $scope.states_info = states_info;})
+
+        $scope.mapdata();
+            //console.log($scope.states_info);
+
+        
     };
+
+
+
+    // $scope.getColumns = async function() {
+    //     var columns = {};
+    //     console.log($scope.selectedCriteria);
+    //     var fn = await (nationalService.ser_columns().then(function(data){columns = data;}));
+    //     $scope.$apply(function() {
+    //             console.log("in getColumns");
+    //             $scope.columns = columns;
+    //         console.log($scope.columns);});
+    //     console.log($scope.selectedCriteria);
+    //     console.log($scope.columns);
+    // };
     // $scope.ageSelection = function(){
     //     // function records the selectedAge value(gloabl) within this controller 
     //     console.log($scope.selectedState);
