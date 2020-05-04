@@ -28,8 +28,8 @@
           <div class="col-md-6">
           <div class="grey-text" style="margin-left: 20px">Select State Code</div>
           <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.StateCode for network in networks">
-            <option value=""> {{selectedState}} </option>  </select>
+            <select class="dropdown text-center" ng-model="selectedIssuerID" ng-change="networkSelection()" ng-options="network.IssuerId for network in q1">
+            <option value=""> {{selectedIssuerID}} </option>  </select>
         </div>
     </div>
 
@@ -37,7 +37,7 @@
           <div class="grey-text" style="margin-left: 20px">Select Age</div>
           <div class="dropdown-container">
             <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists">
-            <option value=""> Select Age </option>  </select>
+            <option value="">  {{selectedAge}} </option>  </select>
         </div>
           
         </div>

@@ -106,6 +106,7 @@ app.controller('networkController', function($scope, networkService,newsService)
 
     $scope.GotoBenefits = function(index){
         localStorage.setItem('issuerid', $scope.q1[index].IssuerId);
+        localStorage.setItem('age_network',$scope.selectedAge.Age);
         window.open("/benefit");
     };
 

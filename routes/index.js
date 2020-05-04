@@ -59,16 +59,14 @@ router.get('/dental_backend_benefitname/issuerid/:issuerid/age/:age', dentalCont
 router.get('/dental_backend_metalrate/issuerid/:issuerid/age/:age', dentalController.getmetallevelrates);
 
 
-/* ---------------------------------------------------- Authentication ----------------------------------------------------*/
+/* ---------------------------------------------------- Benefits ----------------------------------------------------*/
 
 
-router.get('/benefit_backend_benefitname/issuerid/:issuerid/age/:age', dentalController.getbenefitname);
-/* ----------------------------------------------------  ----------------------------------------------------*/
+router.get('/benefit_backend_benefitname/issuerid/:issuerid/age/:age', benefitController.getbenefitname);
+/* ---------------------------------------------------- National  ----------------------------------------------------*/
 
-// router.get('/stat_backend/state', statsController.statelist);
 
 router.get('/national_backend_rankings/',nationalController.nat_getList);
-
 router.get('/national_backend_stateinfo/state/',nationalController.nat_stateinfo);
 router.get('/national_backend_columns/columns',nationalController.nat_columns);
 router.get('/national_backend_mapdata/crit/',nationalController.nat_mapdata);

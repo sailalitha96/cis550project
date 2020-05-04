@@ -20,31 +20,63 @@ app.controller('benefitController', function($scope, networkService,benefitServi
     //Get the sport data in the $scope.sport variable
 
     $scope.selectedState = localStorage.getItem('state');
+    $scope.selectedAge = localStorage.getItem('age_network')
     $scope.selectedIssuerID = localStorage.getItem('issuerid');
-    console.log($scope.selectedState);
+    $scope.selectedIssuerIdflag= true;
+    $scope.selectedageflag= true;
+
+    console.log($scope.selectedAge);
+    //states 
     networkService.networkList().then(function(data){$scope.networks= data;}); 
     //$scope.stateid = networkService.getState();
     
     networkService.agelist().then(function(data){$scope.agelists= data;});
+    networkService.querylist1($scope.selectedState).then(function(data){$scope.q1 = data;});
 
     // this function provides the benefits given a issuer id and age 
-    $scope.cont_benefitperid = function(){benefitService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.benefitperid = data;});};
+    $scope.cont_benefitperid = function(){benefitService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge).then(function(data){$scope.benefitperid = data;});};
+
+    if($scope.selectedIssuerIdflag && $scope.selectedageflag)
+    {
+        console.log($scope.selectedAge)
+        $scope.cont_benefitperid();
+    }
+
+    $scope.selectedAgeflag = false;
+    $scope.selectedIssuerIdflag= false;
+    
 
 //----------------------------------------------Get Data From the services------------------------------------------------
-    $scope.networkSelection = function(){
+    $scope.networkSelection = async function(){
         // function records the selectedState value (global)
  
-        $scope.query1();
-        $scope.stateflag= true;
-        // console.log($scope.q1);
+        $scope.selectedIssuerIdflag= true;
+        var benefitsname = {}
+
+        var fn = await (benefitService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge).then(function(data){benefitsname = data;}));
+
+        $scope.$apply(function() {
+            console.log("I went into apply function");
+            $scope.benefitperid = benefitsname;});
+
+    
     };
-    $scope.ageSelection = function(){
+    $scope.ageSelection = async function(){
         // function records the selectedAge value(gloabl) within this controller 
         console.log($scope.selectedState);
         $scope.ageflag= true;
-        // $scope.query1();
+
         console.log($scope.selectedAge);
-        $scope.cont_benefitperid();
+        // $scope.cont_benefitperid();
+
+        var benefitsname = {}
+        var fn = await (benefitService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge).then(function(data){benefitsname = data;}));
+
+        $scope.$apply(function() {
+            console.log("I went into apply function");
+            $scope.benefitperid = benefitsname;});
+
+
 
     };
 
