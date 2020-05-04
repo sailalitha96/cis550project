@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import csv
-# from sqlalchemy  import create_engine
+from sqlalchemy  import create_engine
 from datetime import datetime
 '''
 Change filename variable as per the directory or filepath of your Benefits cost file
@@ -35,4 +35,12 @@ def preprocess_quality(filename):
 
 if __name__ == "__main__":
 
-    preprocess_quality('C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/quality.csv')
+
+    df = pd.read_csv('C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/quality_clean.csv', index=False)
+    # Optional, set your indexes to get Primary Keys
+    # df = df.set_index(['COL A', 'COL B'])
+
+    engine = create_engine('mysql://user:pass@host/db', echo=False)
+
+    df.to_sql(quality, engine, index=False)
+    # preprocess_quality('C:/Users/Rutuja Moharil/CIS550 Project/database.sqlite/quality.csv')
