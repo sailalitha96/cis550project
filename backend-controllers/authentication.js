@@ -53,8 +53,8 @@ exports.secured = function (req, res, next) {
 
 // use monggo db 
 exports.userInfo = function(req,res,next){
-  console.log("In auth 0");
-  console.log(req.user);
+  // console.log("In auth 0");
+  // console.log(req.user);
   MongoClient.connect("mongodb://localhost:27017", function (err, client) {
     var db = client.db('Userinformation');
     db.collection('login_Information', function (err, collection) {

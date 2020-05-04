@@ -79,6 +79,7 @@ app.controller('networkController', function($scope, networkService,newsService)
 
         
         $scope.selectedIssuerID = $scope.q1[index].IssuerId;
+        $scope.networknameselected = $scope.q1[index].NetworkName;
         // console.log( $scope.selectedIssuerID)
         $scope.issuerflag= true;
         // $scope.cont_avgrateperid($scope.avgrateperid);
@@ -182,10 +183,12 @@ app.controller('networkController', function($scope, networkService,newsService)
             // console.log(metaldata);
             // console.log("For loop");
             // iterate through the metaldata to get info on card 
+            count =0;
             for ( var key in metaldata){
                 var tmp={}
                 tmp['level'] = metaldata[key].MetalLevel;
                 metaldata[key]['color'] = colorpalet[metaldata[key].MetalLevel];
+                count= count+1;
                 
                 // tmp['premium'] = metaldata[key].premium;
                 // tmp['avgcopay1'] = metaldata[key].AvgCopayInTier1;
@@ -198,7 +201,8 @@ app.controller('networkController', function($scope, networkService,newsService)
             // console.log(carddata)
             $scope.$apply(function() {
                 console.log("I went into apply function");
-                $scope.sensorList = metaldata;})
+                $scope.sensorList = metaldata;
+                $scope.sensorlength =count;})
 
             console.log($scope.sensorList);
 

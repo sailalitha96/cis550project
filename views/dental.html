@@ -30,33 +30,30 @@
         <br>
         <br>
         <br>
-    <div class="col-lg-3 col-md-12 mb-3">
-        <div class="row">
+        <h2>Welcome to Dental Plans Page</h2>
+        <p style="text-align:center"> Get Information on Dental Healthcare Plan  available in your State for your Age. Get estimates on Dental HealthCare expenses in your State</p>
+        <p style="text-align:center"> Tooth be told - Dental Care is Important. Start by entering your State ID and your Age</p>
+    <!-- <div class="col-lg-3 col-md-12 mb-3"> -->
+        <div class="row" style="text-align:center">
           <!-- <div class="col-md-1"></div> -->
-          <div class="col-md-6">
-          <div class="grey-text" style="margin-left: 20px">Select State Code</div>
-          <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.StateCode for network in networks">
-            <option value=""> {{selectedState}} </option>  </select>
-        </div>
-          <!-- <p>{{selectedState}}</p> -->
+            <div class="col-sm-6">
+                <div class="grey-text" style="margin-left: 20px">Select State Code</div>
+                <div class="dropdown-container">
+                    <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.StateCode for network in networks">
+                    <option value=""> {{selectedState}} </option>  </select>
+                 </div>
             </div>
-         <!-- </div> -->
-    <!-- </div>
-    <br>
-    <div class="col-lg-3 col-md-12 mb-3"> -->
-        <!-- <div class="row"> -->
-          <!-- <div class="col-md-1"></div> -->
-          <div class="col-md-6">
-          <div class="grey-text" style="margin-left: 20px">Select Age</div>
-          <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists">
-            <option value=""> Select Age </option>  </select>
-        </div>
+        
+            <div class="col-sm-6">
+                <div class="grey-text" style="margin-left: 20px">Select Age</div>
+                <div class="dropdown-container">
+                    <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists">
+                    <option value=""> Select Age </option>  </select>
+                </div>
           
+            </div>
         </div>
-    </div>
-    </div>
+    <!-- </div> -->
     <br>
 
     <style>
@@ -67,6 +64,8 @@
     </style>
     <!-- Display more information only when main menus are created -->
     <div ng-show="ageflag">
+        <p style="text-align:center"> Network Providers in your State are listed. To know more about the Network Provider click on <strong>Get Details</strong>.</p> 
+        <p style="text-align:center">You are one step closer to getting your estimates.</p>
         <table  width="80%" >     
         <thead style="text-align:center">           
             <tr>
@@ -89,6 +88,9 @@
 
         <!-- In this show the value from cont_avgrateperidSelection() , clicks on Visualize to get graphs -->
         <div ng-show="issuerflag&& ageflag">
+            <p style="text-align:center">Thanks for Inquiring about {{networknameselected}}. These are the estimates for  {{networknameselected}} in your State for your Age. To know more about the Different Tier Plans within your Network click <strong>Visualize</strong>.</p>
+            <br>
+            <p style="text-align:center">To learn more about of Coinsurance, CoPay and General Healthcare terms visit the <a href='/info'> Information Page</a></p>
             <table  width="80%" >     
                 <thead style="text-align:center">           
                     <tr>
@@ -123,7 +125,7 @@
                     .cards{
                         display: grid;
                         grid-gap: 1em;
-                        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                        grid-template-columns: repeat(3, minmax(500px, 1fr));
                         /* grid-template-rows: repeat(4, 1fr); */ 
                     }
                     .card {
@@ -155,7 +157,9 @@
                         text-align: center;
                         }
                 </style>
-
+                <div ng-show="createdg1flag">
+                <p style="text-align:center">Your Network has {{sensorlength}} Tier Plans. Click on Visualize to know more about the Premiums , Co-Pay's for your Tier Level.Remember Health is Wealth. </p></div>
+                <br>
                 <div class="cards">
                     <div class="card" ng-repeat="sensor in sensorList" ng-style="{'background':sensor.color}">
                         <!-- <div class="bg-img"></div> -->
@@ -166,7 +170,7 @@
                                     <!-- <div id="chartscustom" align="center"> -->
                                         <div class="content">
                                         <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
-                                        <div id="donughtchartrates{{sensor.MetalLevel}}" style="width: 200px; height: 300px"></div></div>
+                                        <div id="donughtchartrates{{sensor.MetalLevel}}" style="width: 400px; height: 300px"></div></div>
                             <!-- </div> -->
                                     <!-- <div class="card">...</div>
                                     <div class="card">...</div> -->
@@ -179,7 +183,7 @@
 
             <!-- display news  -->
             <div class="cards">
-            <div class=""col-md-4 ng-repeat="news in topNews">
+            <div class="" ng-repeat="news in topNews">
 
                 <!-- news image -->
                 <!--Card-->

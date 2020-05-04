@@ -30,33 +30,36 @@
         <br>
         <br>
         <br>
-    <div class="col-lg-3 col-md-12 mb-3">
-        <div class="row">
+        <h2>Welcome to Network Page</h2>
+        <p style="text-align:center"> Get Information on Healthcare Plan available in your State for your Age. Get estimates on HealthCare expenses in your State</p>
+        <p style="text-align:center"> Health is Wealth. Start by entering your State ID and your Age</p>
+    <!-- <div class="col-sm-4" style="text-align:center"> -->
+        <div class="row" style="text-align:center">
           <!-- <div class="col-md-1"></div> -->
-          <div class="col-md-6">
-          <div class="grey-text" style="margin-left: 20px">Select State Code</div>
-          <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.StateCode for network in networks">
-            <option value=""> {{selectedState}} </option>  </select>
-        </div>
-          <!-- <p>{{selectedState}}</p> -->
+          <div class="col-sm-6">
+                <div class="grey-text" style="margin-left: 20px">Select State Code</div>
+                <div class="dropdown-container">
+                <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.StateCode for network in networks">
+                <option value=""> {{selectedState}} </option>  </select>
+                </div>
+         
             </div>
          <!-- </div> -->
-    <!-- </div>
-    <br>
-    <div class="col-lg-3 col-md-12 mb-3"> -->
-        <!-- <div class="row"> -->
-          <!-- <div class="col-md-1"></div> -->
-          <div class="col-md-6">
-          <div class="grey-text" style="margin-left: 20px">Select Age</div>
-          <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists">
-            <option value=""> Select Age </option>  </select>
-        </div>
+            <!-- </div>
+            <br>
+            <div class="col-lg-3 col-md-12 mb-3"> -->
+                <!-- <div class="row"> -->
+                <!-- <div class="col-md-1"></div> -->
+            <div class="col-sm-6">
+                <div class="grey-text" style="margin-left: 20px">Select Age</div>
+                <div class="dropdown-container">
+                <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists">
+                <option value=""> Select Age </option>  </select>
+                </div>
           
+            </div>
         </div>
-    </div>
-    </div>
+    <!-- </div> -->
     <br>
 
     <style>
@@ -68,9 +71,11 @@
     <!-- Display more information only when main menus are created -->
     <!-- <div ng-if= </div> -->
     <div ng-show = "ageflag && !inlistflag">
-        <p> We apologize , We are still in process of Collecting Data for {{selectedState}}. Try Another State</p>
+        <p style="text-align:center"> We apologize , We are still in process of Collecting Data for {{selectedState}}. Try Another State</p>
     </div>
     <div ng-show="ageflag && inlistflag">
+        <p style="text-align:center"> Network Providers in your State are listed. To know more about the Network Provider click on <strong>Get Details</strong>.</p> 
+        <p style="text-align:center">You are one step closer to getting your estimates.</p>
         <table  width="80%" >     
         <thead style="text-align:center">           
             <tr>
@@ -93,6 +98,9 @@
 
         <!-- In this show the value from cont_avgrateperidSelection() , clicks on Visualize to get graphs -->
         <div ng-show="issuerflag&& ageflag">
+            <p style="text-align:center">Thanks for Inquiring about {{networknameselected}}. These are the estimates for  {{networknameselected}} in your State for your Age. To know more about the Different Tier Plans within your Network click <strong>Visualize</strong>.</p>
+            <br>
+            <p style="text-align:center">To learn more about of Coinsurance, CoPay and General Healthcare terms visit the <a href='/info'> Information Page</a></p>
             <table  width="80%" >     
             <thead style="text-align:center">           
                 <tr>
@@ -158,8 +166,11 @@
                         text-align: center;
                         }
                 </style>
-                
+                <div ng-show="createdg1flag">
+                <p style="text-align:center">Your Network has {{sensorlength}} Tier Plans. Click on Visualize to know more about the Premiums , Co-Pay's for your Tier Level.Remember Health is Wealth. </p></div>
+                <br>
                 <div class="cards">
+                    
                     <div class="card" ng-repeat="sensor in sensorList" ng-style="{'background':sensor.color}">
                         <!-- <div class="bg-img"></div> -->
                             <div class="content">
@@ -182,33 +193,33 @@
                  </div></div> -->
             <!-- </div> -->
 
-                <div class="cards">
-                    <div class="col-md-4" ng-repeat="news in topNews">
+            <div class="cards">
+                <div class="" ng-repeat="news in topNews">
     
-                    <!-- news image -->
-                    <!--Card-->
-                    <div class="card">
-    
-                        <!--Card image-->
-                        <div class="view">
-                            <img ng-src="{{news.urlToImage}}" width="100%" height=130 class="card-img-top" alt="photo">
-                            <a href={{news.url}}>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-    
-                        <!--Card content-->
-                        <div class="card-body">
-                            <!--Title-->
-                            <h4 class="card-title">{{news.source.name}}</h4>
-                            <!--Text-->
-                            <p class="card-text">{{news.title}}</p>
-                        </div>
-    
+                <!-- news image -->
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card image-->
+                    <div class="view">
+                        <img ng-src="{{news.urlToImage}}" width="100%" height=130 class="card-img-top" alt="photo">
+                        <a href={{news.url}}>
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
                     </div>
-                    <!--/.Card-->
-    
-                </div></div>
+
+                    <!--Card content-->
+                    <div class="card-body">
+                        <!--Title-->
+                        <h4 class="card-title">{{news.source.name}}</h4>
+                        <!--Text-->
+                        <p class="card-text">{{news.title}}</p>
+                    </div>
+
+                </div>
+                <!--/.Card-->
+
+            </div></div>
         </div> 
         
         <!-- Get a pie chart -->
