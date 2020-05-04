@@ -29,6 +29,7 @@ router.get('/network',htmlLoader.network);
 router.get('/dental',htmlLoader.dental);
 router.get('/benefit',htmlLoader.benefit);
 router.get('/national' ,htmlLoader.national);
+router.get('/info', htmlLoader.info);
 
 
 
@@ -72,10 +73,8 @@ router.get('/national_backend_stateinfo/state/',nationalController.nat_stateinfo
 router.get('/national_backend_columns/columns',nationalController.nat_columns);
 router.get('/national_backend_mapdata/crit/',nationalController.nat_mapdata);
 
-/* ----------------------------------------------------Mongo Db  ----------------------------------------------------*/
 
 
-router.get('/storedata_mongodb/username/:user/password/:password',nationalController.nat_mapdata);
 
 
 
