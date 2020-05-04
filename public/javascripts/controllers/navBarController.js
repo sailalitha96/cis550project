@@ -7,13 +7,13 @@ app.controller("navBarController",navbarController = function navbarController($
     $scope.dentalPage = '/dental';
     $scope.benefitPage = '/benefit';
     $scope.nationalPage = '/national';
+    $scope.infoPage = '/info';
 
 
     //----------------------------------------------Get Data From the services(Create chart for countries)------------------------------------------------
 
     userInfoService.getInfo().then(function(data){$scope.user= data;}); 
-    // console.log($scope.user)
-    // create a service which feeds the 
+    
 });
 
 
