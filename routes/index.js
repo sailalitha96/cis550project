@@ -69,6 +69,8 @@ router.get('/benefit_backend_benefitname/issuerid/:issuerid/age/:age', dentalCon
 router.get('/national_backend_rankings/',nationalController.nat_getList);
 
 router.get('/national_backend_stateinfo/state/',nationalController.nat_stateinfo);
+router.get('/national_backend_columns/columns',nationalController.nat_columns);
+router.get('/national_backend_mapdata/crit/',nationalController.nat_mapdata);
 
 
 
