@@ -83,6 +83,21 @@
     <div ng-show="ageflag">
         <p style="text-align:center"> Network Providers in your State are listed. To know more about the Network Provider click on <strong>Get Details</strong>.</p> 
         <p style="text-align:center">You are one step closer to getting your estimates.</p>
+        <style>
+            th{
+                text-align: center;
+                background-color: rgba(91, 146, 91);
+                color: white;
+                padding: 8px;
+            }
+            td{
+                text-align: center;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {background-color: #f2f2f2;}
+            tr:hover {background-color: darkgrey;}
+        </style>
         <table  width="80%" >     
         <thead style="text-align:center">           
             <tr>
@@ -97,8 +112,8 @@
         </thead>
         <tbody  style="text-align:center">
             <tr data-ng-repeat="data in q1">
-                <td style="width:30%"><a href="">{{ data.IssuerId}}</a></td>
-                <td style="width:70%">{{ data.NetworkName}}</td>
+                <td>{{ data.IssuerId}}</td>
+                <td>{{ data.NetworkName}}</td>
                 <td >{{ data.NumPlans}}</td>
                 <td >{{ data.quality_index}}</td>
                 <td><input type="button" value="Get Details" ng-click="GetDetails_Issuer($index)" ng-model="selectedIssuerID" ng-change="GetDetails_Issuer($index)"/></td>
