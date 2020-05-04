@@ -34,6 +34,7 @@ app.controller('networkController', function($scope, networkService,newsService)
     else{
         $scope.inlistflag = false;
     }
+
     // check if your selected state is in the database list
 
     networkService.agelist().then(function(data){$scope.agelists= data;});
@@ -49,9 +50,16 @@ app.controller('networkController', function($scope, networkService,newsService)
 //----------------------------------------------Get Data From the services------------------------------------------------
     $scope.networkSelection = function(){
         // function records the selectedState value (global)
- 
+        if(list_states.includes($scope.selectedState.StateCode))
+        {
+            $scope.inlistflag = true;
+        }
+        else{
+            $scope.inlistflag = false;
+        }
         $scope.query1();
         $scope.stateflag= true;
+        $scope.ageflag= false;
         // console.log($scope.q1);
     };
 
