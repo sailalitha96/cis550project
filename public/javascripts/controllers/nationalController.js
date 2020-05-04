@@ -57,18 +57,25 @@ app.controller('nationalController', function($scope, nationalService) {
     nationalService.cont_stateinfo = function(){nationalService.ser_stateinfo($scope.selectedState).then(function(data){$scope.states_info = data;});};
     nationalService.ser_columns().then(function(data){$scope.agelists = data;});
 //----------------------------------------------Get Data From the services------------------------------------------------
-    $scope.networkSelection = function(){
-        // function records the selectedState value (global)
+    // $scope.networkSelection = function(){
+    //     // function records the selectedState value (global)
 
-        // $scope.query1();
-        $scope.stateflag= true;
-        // console.log($scope.q1);
-    };    
+    //     // $scope.query1();
+    //     $scope.stateflag= true;
+    //     // console.log($scope.q1);
+    // };    
     $scope.criteriaSelection = function(){
         // function records the selectedAge value(gloabl) within this controller 
 
         console.log($scope.selectedCriteria);
         $scope.ageflag= true;
+        // $scope.$apply(function() {
+            //console.log("I went into apply function");
+            // $scope.states_info = states_info;
+        $scope.selectedCriteriaflag= true;
+        $scope.networkSelection();
+        // })
+        
         // $scope.stateflag= false;
         // if(map)
         // {
@@ -80,11 +87,11 @@ app.controller('nationalController', function($scope, nationalService) {
 
     $scope.reloadfn = function()
     {
-        if($scope.stateflag)
+        if($scope.selectedCriteriaflag)
         {   localStorage.setItem('criteria',$scope.selectedCriteria);
             location.pathname = '/national';
             location.reload();
-        $scope.stateflag= false}
+        $scope.selectedCriteriaflag= false}
     };
 
     $scope.mapdata = async function(){

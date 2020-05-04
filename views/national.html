@@ -48,241 +48,96 @@
         <br>
         <br>
         <br>
-    <div class="col-lg-3 col-md-12 mb-3">
+    <!-- <div class="col-lg-3 col-md-12 mb-3"> -->
         <div class="row">
           <!-- <div class="col-md-1"></div> -->
-          <div class="col-md-6">
-            <div class="grey-text" style="margin-left: 20px">Select Criteria</div>
-            <div class="dropdown-container">
-                <select class="dropdown text-center" ng-model="selectedCriteria"  ng-change="criteriaSelection()" ng-options="network.Field for network in agelists">
-                <option value=""> {{selectedCriterianame}} </option>  </select> 
-            </div>
-            <button ng-click="reloadfn()" > Try Another Criteria </button>
-        </div>
-    </div>
-    <div class="row"></div>
-          <div class="col-md-6">
-          <div class="grey-text" style="margin-left: 20px">Select State Code</div>
-          <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.State for network in networks">
-            <option value=""> {{selectedState}} </option>  </select>
+            <div class="col-sm-6">
+                <div class="grey-text" style="margin-left: 20px">Select Criteria</div>
+                <div class="dropdown-container">
+                    <select class="dropdown text-center" ng-model="selectedCriteria"  ng-change="criteriaSelection()" ng-options="network.Field for network in agelists">
+                    <option value=""> {{selectedCriterianame}} </option>  </select> 
                 </div>
-          <!-- <p>{{selectedState}}</p> -->
+            </div>
+            <div class="col-sm-6">
+                <button ng-click="reloadfn()" > Try Another Criteria </button></div>
             </div>
         </div>
-    </div>
-         <!-- </div> -->
-    <!-- </div>
-    <br>
-    <div class="col-lg-3 col-md-12 mb-3"> -->
-        <!-- <div class="row"> -->
-          <!-- <div class="col-md-1"></div> -->
-          <!-- <div class="col-md-6">
-          <div class="grey-text" style="margin-left: 20px">Select Age</div>
-          <div class="dropdown-container">
-            <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists">
-            <option value=""> Select Age </option>  </select> -->
+        <!-- <div class="row"></div>
+            <div class="col-md-6">
+            <div class="grey-text" style="margin-left: 20px">Select State Code</div>
+            <div class="dropdown-container">
+                <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.State for network in networks">
+                <option value=""> {{selectedState}} </option>  </select>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+            <!-- </div> -->
+        <!-- </div>
+        <br>
+        <div class="col-lg-3 col-md-12 mb-3"> -->
+            <!-- <div class="row"> -->
+            <!-- <div class="col-md-1"></div> -->
+            <!-- <div class="col-md-6">
+            <div class="grey-text" style="margin-left: 20px">Select Age</div>
+            <div class="dropdown-container">
+                <select class="dropdown text-center" ng-model="selectedAge" ng-change="ageSelection()" ng-options="network.Age for network in agelists">
+                <option value=""> Select Age </option>  </select> -->
+            <!-- </div> -->
+            
+            <!-- </div>
         </div>
-          
-        </div>
-    </div>
-    </div>
-    <br>
+        </div> -->
+        <br>
 
-    <style>
-        table, th, td {
-          border: 1px solid black;
-          margin: 10px auto; 
-        }
-    </style>
+        <style>
+            table, th, td {
+            border: 1px solid black;
+            margin: 10px auto; 
+            }
+        </style>
 
     <!-- Display more information only when main menus are created -->
-    <div ng-show="stateflag">
-        <table  width="80%" >     
-        <thead style="text-align:center">           
-            <tr>
-                <th>Rank</th>
-                <th>Nursing Home Staff</th>
-                <th>Annual Healthcare Premium</th>
-                <th>Child Immunization</th>
-                <th>Doctor Staff</th>
-                <th>Health Insurance Coverage</th>
-                <th>In Patient Expense</th>
-                <th>Infant Survival</th>
-                <th>Self Reported Health Status</th>
-            </tr>
-        </thead>
-        <tbody  style="text-align:center">
-            <tr data-ng-repeat="data in states_info">
-                <td >{{ data.Ranks}}</a></td>
-                <td >{{ data.NursingHomeStaff}}</td>
-                <td >{{ data.AnnualHealthcarePremium}}</td>
-                <td >{{ data.ChildImmunization}}</td>
-                <td >{{ data.DoctorStaff}}</td>
-                <td >{{ data.HealthInsuranceCoverage}}</td>
-                <td >{{ data.InPatientExpense}}</td>
-                <td >{{ data.InfantSurvival}}</td>
-                <td >{{ data.SelfreportedHealthStatus}}</td>
-            </tr>
-        </tbody>
-        </table>
-        <br>
-    </div>
-
-        <!-- <div anymap ac-data="mydata" ac-instance="mymap" style="width: 40%; height: 60%"></div> -->
-        <div id = "container_map" style="width: 100%; height: 700px;"></div>
-
-    
-        <!-- In this show the value from cont_avgrateperidSelection() , clicks on Visualize to get graphs -->
-        <div ng-show="issuerflag&& ageflag">
-            <table  width="80%" >     
-                <thead style="text-align:center">           
-                    <tr>
-                        <!-- <th>NumPlans</th> -->
-                        <th> Avg Premimum</th>
-                        <th> Avg Copay</th>
-                        <th> Avg Coinsurance</th>
-                        <th>Visualize</th>
-
-                    </tr>
-                </thead>
-                <tbody  style="text-align:center">
-                    <tr data-ng-repeat="data in avgrateperid">
-                        <!-- <td >{{ data.NumPlans}}</td> -->
-                        <td >{{ data.Avg_Premium}}</td>
-                        <td >{{ data.Avg_Copay}}</td>
-                        <td >{{ data.Avg_Coinsurance}}</td>
-                        <td><input type="button" value="Visualize" ng-click="GetDetails_Graph($index)" ng-model="graph" ng-change="GetDetails_Graph($index)"/></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="chartscustom" align="center">
-                <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
-                <div id="piechartrates" style="width: 500px; height: 400px"></div>
-                </style>
-            </div>
-            
-
-            <!-- We try to display a card for metal levels -->
-
-                <style>
-                    .cards{
-                        display: grid;
-                        grid-gap: 1em;
-                        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                        /* grid-template-rows: repeat(4, 1fr); */ 
-                    }
-                    .card {
-                        border: 1px solid #d3d3d3;
-                        border-radius: .25rem;
-                    }
-                    /* .bg-img {
-                    background-size: cover;
-                    min-height: 180px;
-                    background-position: center;
-                    background-color: #ccc;
-                    } */
-                    .content {
-                            padding: 15px;
-                    }
-
-                    button {
-                        background-color: transparent;
-                        border: 1px solid #2196F3;
-                        padding: .5rem 1rem;
-                        cursor: pointer;
-                        border-radius: .25rem;
-                    }
-                    .grid-item {
-                        border: 2px solid black;
-                        border-radius: 4px;
-                        font-size: 70%;
-                        padding: 1em;
-                        text-align: center;
-                        }
-                </style>
-
-                <div class="cards">
-                    <div class="card" ng-repeat="sensor in sensorList" ng-style="{'background':sensor.color}">
-                        <!-- <div class="bg-img"></div> -->
-                            <div class="content">
-                                <h4>{{sensor.MetalLevel}}</h4>
-                                    <p> To Know more about the {{sensor.MetalLevel}} level Statistics such as Co-Pay and Co-Insurance click Below </p>  
-                                    <button ng-click="Get_metalgraphs(sensor)" ng-model="m_graph" ng-change="Get_metalgraphs(sensor)">Visualize</button> </div>
-                                    <!-- <div id="chartscustom" align="center"> -->
-                                        <div class="content">
-                                        <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
-                                        <div id="donughtchartrates{{sensor.MetalLevel}}" style="width: 200px; height: 300px"></div></div>
-                            <!-- </div> -->
-                                    <!-- <div class="card">...</div>
-                                    <div class="card">...</div> -->
-                    </div>  
-                </div>
-                <!-- <div>SENSOR {{ $index + 1 }}</div>
-                <div>Hours: {{ sensor.hour }}</div>
-                 </div></div> -->
-            <!-- </div> -->
-
-            <!-- display news  -->
-            <div class="cards">
-            <div class="col-lg-3 col-md-12 " ng-repeat="news in topNews">
-
-                <!-- news image -->
-                <!--Card-->
-                <div class="card">
-
-                    <!--Card image-->
-                    <div class="view">
-                        <img ng-src="{{news.urlToImage}}" width="100%" height=130 class="card-img-top" alt="photo">
-                        <a href={{news.url}}>
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
-                    </div>
-
-                    <!--Card content-->
-                    <div class="card-body">
-                        <!--Title-->
-                        <h4 class="card-title">{{news.source.name}}</h4>
-                        <!--Text-->
-                        <p class="card-text">{{news.title}}</p>
-                    </div>
-
-                </div>
-                <!--/.Card-->
-
-            </div></div>
-            
-        </div> 
-        
-        <!-- Get a pie chart -->
-        <!-- <canvas id="pie" class="chart chart-pie" data="avgrateperid" labels="labels" legend="true">
-        </canvas> -->
-        
-
-        <!-- Display benefits per ID  -->
+        <div ng-show="selectedCriteriaflag">
             <!-- <table  width="80%" >     
-                <thead style="text-align:center">           
-                    <tr>
-                        <th>Benefits</th>
-                        <!-- <th>Network Name</th>
-                        <th>Network URL</th> -->
-                    <!-- </tr>
-                </thead>
-                <tbody  style="text-align:center">
-                    <tr data-ng-repeat="data in benefitperid">
-                        <td >{{ data.Benefits}}</td>
-                        <!-- <td style="width:70%">{{ data.NetworkName}}</td>
-                        <td style="width:70%">{{ data.neturl}}</td> -->
-                    <!-- </tr> -->
-                <!-- </tbody> -->
-            <!-- </table> --> 
+            <thead style="text-align:center">           
+                <tr>
+                    <th>Rank</th>
+                    <th>Nursing Home Staff</th>
+                    <th>Annual Healthcare Premium</th>
+                    <th>Child Immunization</th>
+                    <th>Doctor Staff</th>
+                    <th>Health Insurance Coverage</th>
+                    <th>In Patient Expense</th>
+                    <th>Infant Survival</th>
+                    <th>Self Reported Health Status</th>
+                </tr>
+            </thead>
+            <tbody  style="text-align:center">
+                <tr data-ng-repeat="data in states_info">
+                    <td >{{ data.Ranks}}</a></td>
+                    <td >{{ data.NursingHomeStaff}}</td>
+                    <td >{{ data.AnnualHealthcarePremium}}</td>
+                    <td >{{ data.ChildImmunization}}</td>
+                    <td >{{ data.DoctorStaff}}</td>
+                    <td >{{ data.HealthInsuranceCoverage}}</td>
+                    <td >{{ data.InPatientExpense}}</td>
+                    <td >{{ data.InfantSurvival}}</td>
+                    <td >{{ data.SelfreportedHealthStatus}}</td>
+                </tr>
+            </tbody>
+            </table> -->
+            <br>
+    
 
-
-        <!-- <script type="text/javascript"> updatepiechartSelection() </script> -->
-
-        <!-- <div ng-repeat="bar in chart1data" class="bar" style="height:300px; width:300px;"></div> -->
-
+            <!-- <div anymap ac-data="mydata" ac-instance="mymap" style="width: 40%; height: 60%"></div> -->
+            <div id = "container_map" style="width: 100%; height: 700px;"></div>
         </div>
+    </div>
+    
+
+
+         
     
     </div>
     </main>
