@@ -3,6 +3,7 @@ var dotenv = require('dotenv');
 var util = require('util');
 var url = require('url');
 var querystring = require('querystring');
+var MongoClient = require('mongodb').MongoClient;
 
 dotenv.config();
 
@@ -45,11 +46,26 @@ exports.logOut = function(req, res){
   
 exports.secured = function (req, res, next) {
       if (req.user) { return next(); }
+      // console.log(req.session);
       req.session.returnTo = req.originalUrl;
       res.redirect('/login');
 };
 
-
+// use monggo db 
 exports.userInfo = function(req,res,next){
+  console.log("In auth 0");
+  console.log(req.user);
+  MongoClient.connect("mongodb://localhost:27017", function (err, client) {
+    var db = client.db('Userinformation');
+    db.collection('login_Information', function (err, collection) {
+        var newDate = new Date();
+        var tme = newDate.toLocaleTimeString();
+        tme = tme.concat(req.user.emails[0]['value'])
+        // var datetime = newDate.timeNow();
+        collection.insertOne({ user_loginsuccess: req.user.email_verified,user_iden: tme,user_name:req.user.nickname , user_emailid: req.user.emails[0]['value'] , user_id: req.user.user_id});
+
+    });
+  })
+  // create a mongo client and load your user data in it 
   res.json(req.user);
 };
