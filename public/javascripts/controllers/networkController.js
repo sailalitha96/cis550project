@@ -100,9 +100,13 @@ app.controller('networkController', function($scope, networkService,newsService)
     });
         console.log("ifconditons");
         console.log($scope.avgrateperid);
+        
+
+    };
+
+    $scope.GotoBenefits = function(index){
         localStorage.setItem('issuerid', $scope.q1[index].IssuerId);
         window.open("/benefit");
-
     };
 
     $scope.GetDetails_Graph = async function (index) {

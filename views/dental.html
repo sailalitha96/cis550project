@@ -30,7 +30,24 @@
         <br>
         <br>
         <br>
-        <h2>Welcome to Dental Plans Page</h2>
+
+        <!-- <h2>Welcome to Network Page</h2> -->
+        <div class="card" style="background-image: linear-gradient(rgba(91, 146, 91), rgba(9, 61, 9) )">
+            <!-- <img class="card-img" src="/images/private_healthcare.jpg" alt="Card image"> -->
+            <!-- <div class="card-img-overlay"> -->
+              <h1 class="card-title" style="text-align: center">Welcome to Dental Plans Page</h1>
+              <h2 class="card-text black-text" style="text-align: center">Dental Plans Information</h2>
+              <p class="card-text black-text" style="text-align: center">Explore different Dental plans suited to your individual needs and demographics.</p>
+              <br>
+              <br>
+              <br>
+              <!-- <a href="/network" class="btn btn-outline-white btn-md waves-effect">Find Available Plans!</a> -->
+            </div>
+          <!-- </div> -->
+        <br>
+        <br>
+        <br>
+        <!-- <h2>Welcome to Dental Plans Page</h2> -->
         <p style="text-align:center"> Get Information on Dental Healthcare Plan  available in your State for your Age. Get estimates on Dental HealthCare expenses in your State</p>
         <p style="text-align:center"> Tooth be told - Dental Care is Important. Start by entering your State ID and your Age</p>
     <!-- <div class="col-lg-3 col-md-12 mb-3"> -->
@@ -71,14 +88,22 @@
             <tr>
                 <th>Issuer ID</th>
                 <th>Network Name</th>
+                <th>Number of Plans Offered</th>
+                <th>Network Quality Score</th>
+                <!-- <th>Get more Info</th> -->
                 <th>Get more Info</th>
+                <th>Get Benefits Info</th>
             </tr>
         </thead>
         <tbody  style="text-align:center">
             <tr data-ng-repeat="data in q1">
                 <td style="width:30%"><a href="">{{ data.IssuerId}}</a></td>
                 <td style="width:70%">{{ data.NetworkName}}</td>
+                <td >{{ data.NumPlans}}</td>
+                <td >{{ data.quality_index}}</td>
                 <td><input type="button" value="Get Details" ng-click="GetDetails_Issuer($index)" ng-model="selectedIssuerID" ng-change="GetDetails_Issuer($index)"/></td>
+                <td><input type="button" value="Benefits" ng-click="GotoBenefits($index)" ng-model="buttonval" ng-change="GotoBenefits($index)"/></td>
+
                 <!-- <td style="width:70%">{{ data.neturl}}</td> -->
             </tr>
         </tbody>

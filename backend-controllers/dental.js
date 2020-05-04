@@ -20,9 +20,23 @@ exports.getList = function(req, res) {
     var state = req.query.state;
     state = JSON.stringify(state);
     console.log(state);
-  	var query = `SELECT DISTINCT(network.IssuerId),network.NetworkName ,network.NetworkURL as neturl FROM network WHERE network.StateCode LIKE ${state} AND network.DentalOnlyPlan LIKE '%Yes%' group by IssuerID`;
+  	// var query = `SELECT DISTINCT(network.IssuerId),network.NetworkName ,network.NetworkURL as neturl FROM network WHERE network.StateCode LIKE ${state} AND network.DentalOnlyPlan LIKE '%Yes%' group by IssuerID`;
     // console.log(query);
-
+    var query = `WITH R1 AS(SELECT
+      DISTINCT(network.IssuerId) AS IssuerId,
+      network.NetworkName AS Network
+      FROM network
+      WHERE network.StateCode LIKE ${state}
+      AND network.DentalOnlyPlan LIKE '%Yes%'
+      GROUP BY network.IssuerId),
+      R2 AS (SELECT R1.IssuerId, R1.Network, COUNT(DISTINCT(PlanId)) AS NumPlans
+      FROM rate JOIN R1 ON rate.IssuerId = R1.IssuerId
+      GROUP BY R1.IssuerId)
+      SELECT R2.IssuerId, R2.Network as NetworkName, R2.NumPlans,
+      COALESCE(1-quality.Claims_Denials/(quality.Claims_Received+quality.Claims_Denials),'Not Available Currently') AS quality_index
+      FROM R2 LEFT JOIN quality ON R2.IssuerId = quality.Issuer_ID
+      GROUP BY R2.IssuerId
+      ORDER BY NumPlans DESC, quality_index DESC;`
     sql.execute(query, res);
   };
 

@@ -76,6 +76,11 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
 
     };
 
+    $scope.GotoBenefits = function(index){
+        localStorage.setItem('issuerid', $scope.q1[index].IssuerId);
+        window.open("/benefit");
+    };
+
     $scope.GetDetails_Graph = async function (index) {
         // function - takes the information from the  rate information displayed extracts them to scorp values (handling lag)
         // invokes the create barchart function to get a graph 
