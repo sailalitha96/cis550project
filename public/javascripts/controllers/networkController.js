@@ -100,7 +100,7 @@ app.controller('networkController', function($scope, networkService,newsService)
         console.log("ifconditons");
         console.log($scope.avgrateperid);
         localStorage.setItem('issuerid', $scope.q1[index].IssuerId);
-        // window.open("/benefit");
+        window.open("/benefit");
 
     };
 
@@ -130,7 +130,7 @@ app.controller('networkController', function($scope, networkService,newsService)
 
         console.log(" Completed feeddata")
 
-        newsService.topSportsNews($scope.selectedState,$scope.topNewsLimit).then(function(data){$scope.topNews= data;});
+        newsService.topSportsNews($scope.selectedState ,"HealthCare",$scope.topNewsLimit).then(function(data){$scope.topNews= data;});
 
 
         // $scope.carddisplay();

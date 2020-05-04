@@ -1,7 +1,8 @@
 // use a aws sdk for addin stuff to 
 // var AWS = require('aws-sdk');
 var MongoClient = require('mongodb').MongoClient;
-
+// var mongoose = require("mongoose");
+// var bcrypt = require("bcrypt-nodejs");
 // AWS.config.update({
 //   region: "us-east-1",
 //   // The endpoint should point to the local or remote computer where DynamoDB (downloadable) is running.

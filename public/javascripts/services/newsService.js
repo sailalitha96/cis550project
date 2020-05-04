@@ -59,9 +59,11 @@ var state_dict = {
         'WV': 'West Virginia',
         'WY': 'Wyoming'
 }
-var topSportsNews = function (state, limit) {
+var topSportsNews = function (state, string_words,limit) {
     var val_state= state_dict[state];
-    url = `https://newsapi.org/v2/everything?q=${val_state} Dental&sortBy=relevance&apiKey=5c4aad7679184604bff739892b078d65`;
+    var query_string = val_state.concat(" ");
+    var query_string = query_string.concat(string_words);
+    url = `https://newsapi.org/v2/everything?q=${query_string} &sortBy=relevance&apiKey=5c4aad7679184604bff739892b078d65`;
     console.log(url);
     return $http.get(url).then(function (response) {
         console.log(response.data.articles);

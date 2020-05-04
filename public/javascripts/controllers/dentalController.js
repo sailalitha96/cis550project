@@ -99,7 +99,7 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
 
         // lets display news 
 
-        newsService.topSportsNews($scope.selectedState,$scope.topNewsLimit).then(function(data){$scope.topNews= data;});
+        newsService.topSportsNews($scope.selectedState,"Dental HealthCare",$scope.topNewsLimit).then(function(data){$scope.topNews= data;});
 
 
         // $scope.carddisplay();
