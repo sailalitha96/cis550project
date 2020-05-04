@@ -20,9 +20,22 @@ app.controller('networkController', function($scope, networkService,newsService)
 
     $scope.selectedState = localStorage.getItem('state');
     console.log($scope.selectedState);
+
+    var list_states =['AR','DE','HI','IA','IL','KS','KY','ME','MI','MT','NE','NH','NJ','NM'
+    ,'NV','OH','OR','PA','SD','UT','VA','WV','AK','AL','AZ','FL','GA','IN'
+    ,'LA','MO','MS','NC','ND','OK','SC','TN','TX','WI','WY']
+
     networkService.networkList().then(function(data){$scope.networks= data;}); 
     //$scope.stateid = networkService.getState();
-    
+    if (list_states.includes($scope.selectedState))
+    {
+        $scope.inlistflag = true;
+    }
+    else{
+        $scope.inlistflag = false;
+    }
+    // check if your selected state is in the database list
+
     networkService.agelist().then(function(data){$scope.agelists= data;});
     $scope.query1 = function(){networkService.querylist1($scope.selectedState).then(function(data){$scope.q1 = data;});};
 
@@ -41,6 +54,8 @@ app.controller('networkController', function($scope, networkService,newsService)
         $scope.stateflag= true;
         // console.log($scope.q1);
     };
+
+
     $scope.ageSelection = function(){
         // function records the selectedAge value(gloabl) within this controller 
         console.log($scope.selectedState);
@@ -51,17 +66,33 @@ app.controller('networkController', function($scope, networkService,newsService)
     };
 
  
-    $scope.GetDetails_Issuer = function (index) {
+    $scope.GetDetails_Issuer = async function (index) {
         // this function takes in the issuer id information from the get details button and uses that to run subsqeuent queries
 
+        
         $scope.selectedIssuerID = $scope.q1[index].IssuerId;
         // console.log( $scope.selectedIssuerID)
         $scope.issuerflag= true;
-        $scope.cont_avgrateperid($scope.avgrateperid);
+        // $scope.cont_avgrateperid($scope.avgrateperid);
         // $scope.cont_benefitperid();
 
+        var fn = await (networkService.service_avgrateperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.avgrateperid = data;}));
+        
+        $scope.$apply(function(){$scope.copyavgrateperid = $scope.avgrateperid
+        console.log($scope.avgrateperid);
+        if($scope.avgrateperid[0].Avg_Premium == 0){
+            $scope.avgrateperid[0].Avg_Premium = "Information not available";}
+        else{$scope.avgrateperid_avgpremimum = $scope.avgrateperid.Avg_Premium;}
+        if($scope.avgrateperid[0].Avg_Copay == 0){
+            $scope.avgrateperid[0].Avg_Copay = "Information not available";}
+        else{$scope.avgrateperid_avgcopay = $scope.avgrateperid.Avg_Copay;}
+        if($scope.avgrateperid[0].Avg_Coinsurance == 0){$scope.avgrateperid[0].Avg_Coinsurance = "Information not available";
+        }else{$scope.avgrateperid_avgcoins = $scope.avgrateperid.Avg_Coinsurance;}
+    });
+        console.log("ifconditons");
+        console.log($scope.avgrateperid);
         localStorage.setItem('issuerid', $scope.q1[index].IssuerId);
-        window.open("/benefit");
+        // window.open("/benefit");
 
     };
 
@@ -69,9 +100,11 @@ app.controller('networkController', function($scope, networkService,newsService)
         // function - takes the information from the  rate information displayed extracts them to scorp values (handling lag)
         // invokes the create barchart function to get a graph 
 
-        $scope.avgrateperid_avgpremimum = $scope.avgrateperid[index].Avg_Premium;
-        $scope.avgrateperid_avgcopay = $scope.avgrateperid[index].Avg_Copay;
-        $scope.avgrateperid_avgcoins = $scope.avgrateperid[index].Avg_Coinsurance;
+
+
+        $scope.avgrateperid_avgpremimum = $scope.copyavgrateperid[index].Avg_Premium;
+        $scope.avgrateperid_avgcopay = $scope.copyavgrateperid[index].Avg_Copay;
+        $scope.avgrateperid_avgcoins = $scope.copyavgrateperid[index].Avg_Coinsurance;
 
         //Debug statement
         console.log( $scope.q1[index])

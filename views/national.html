@@ -35,6 +35,14 @@
       <script src="javascripts/js/anychart-exports.min.js"></script>
       <script src="javascripts/js/anychart-ui.min.js"></script>
       <script src="javascripts/js/united_states_of_america.js"></script>
+      <script src="../dist/anychart-angularjs.min.js"></script>
+      <script src='https://d3js.org/d3.v4.min.js'></script> 
+      <script> 
+        function clearcontent(elementID) { 
+            document.getElementById(elementID).innerHTML = ""; 
+        } 
+    </script> 
+
         <!--Main Navigation-->
     <main ng-controller="nationalController">
         <br>
@@ -46,9 +54,10 @@
           <div class="col-md-6">
             <div class="grey-text" style="margin-left: 20px">Select Criteria</div>
             <div class="dropdown-container">
-                <select class="dropdown text-center" ng-model="selectedCriteria" ng-change="criteriaSelection()" ng-options="network.Field for network in agelists">
-                <option value=""> {{selectedCriteria}} </option>  </select>
+                <select class="dropdown text-center" ng-model="selectedCriteria"  ng-change="criteriaSelection()" ng-options="network.Field for network in agelists">
+                <option value=""> {{selectedCriterianame}} </option>  </select> 
             </div>
+            <button ng-click="reloadfn()" > Try Another Criteria </button>
         </div>
     </div>
     <div class="row"></div>
@@ -119,10 +128,11 @@
         </table>
         <br>
     </div>
+
+        <!-- <div anymap ac-data="mydata" ac-instance="mymap" style="width: 40%; height: 60%"></div> -->
         <div id = "container_map" style="width: 100%; height: 700px;"></div>
 
-   
-
+    
         <!-- In this show the value from cont_avgrateperidSelection() , clicks on Visualize to get graphs -->
         <div ng-show="issuerflag&& ageflag">
             <table  width="80%" >     
