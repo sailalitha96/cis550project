@@ -40,3 +40,7 @@ exports.benefit = function(req, res, next) {
 exports.national = function(req, res, next) {  
     res.sendFile( view_path +'/national.html');
 };
+
+exports.info = function(req, res, next) {  
+    res.sendFile( view_path +'/info.html');
+};
