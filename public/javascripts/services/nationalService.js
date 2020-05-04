@@ -28,6 +28,25 @@ app.factory('nationalService',function($http){
         });
     };
 
+    var ser_columns = function() {
+        return $http.get('/national_backend_columns/columns').then(function(response) {
+            console.log("response data is");
+            console.log(response.data);
+            return response.data;
+        });
+    };
+
+    var ser_mapdata = function(crit){
+
+        crit = crit.split(' ').join(''); 
+        console.log(crit);
+        return $http.get(`/national_backend_mapdata/crit?crit=${crit}`).then(function(response) {
+            console.log("service map data");
+            console.log(response.data);
+            return response.data;
+        });
+    };
+
     var service_avgrateperid = function(issuerid, age) {
         return $http.get(`/network_backend_avgrate/issuerid/${issuerid}/age/${age}`).then(function(response) {
             
@@ -73,5 +92,7 @@ app.factory('nationalService',function($http){
        service_avgrateperid:service_avgrateperid,
        service_benefitperid:service_benefitperid,
        service_metallevelrate:service_metallevelrate,
+       ser_columns:ser_columns,
+       ser_mapdata: ser_mapdata,
     };
 });

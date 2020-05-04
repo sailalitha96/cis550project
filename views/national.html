@@ -14,6 +14,9 @@
     <link href="stylesheets/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="stylesheets/css/style.css" rel="stylesheet">
+    <link href="https://playground.anychart.com/geodata/countries/United_States_Of_America/iframe" rel="canonical">
+    <meta content="Choropleth Map,Geo Chart,Geo Visualization" name="keywords">
+    <meta content="AnyChart - JavaScript Charts designed to be embedded and integrated" name="description">
 </head>
 
 <body ng-app="Healthcare">
@@ -25,7 +28,14 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
         <navbar page="National"></navbar>
     </header>
-    <!--Main Navigation-->
+
+      <script src="javascripts/js/proj4.js"></script>
+      <script src="javascripts/js/anychart-base.min.js"></script>
+      <script src="javascripts/js/anychart-map.min.js"></script>
+      <script src="javascripts/js/anychart-exports.min.js"></script>
+      <script src="javascripts/js/anychart-ui.min.js"></script>
+      <script src="javascripts/js/united_states_of_america.js"></script>
+        <!--Main Navigation-->
     <main ng-controller="nationalController">
         <br>
         <br>
@@ -34,6 +44,15 @@
         <div class="row">
           <!-- <div class="col-md-1"></div> -->
           <div class="col-md-6">
+            <div class="grey-text" style="margin-left: 20px">Select Criteria</div>
+            <div class="dropdown-container">
+                <select class="dropdown text-center" ng-model="selectedCriteria" ng-change="criteriaSelection()" ng-options="network.Field for network in agelists">
+                <option value=""> {{selectedCriteria}} </option>  </select>
+            </div>
+        </div>
+    </div>
+    <div class="row"></div>
+          <div class="col-md-6">
           <div class="grey-text" style="margin-left: 20px">Select State Code</div>
           <div class="dropdown-container">
             <select class="dropdown text-center" ng-model="selectedState" ng-change="networkSelection()" ng-options="network.State for network in networks">
@@ -41,6 +60,8 @@
                 </div>
           <!-- <p>{{selectedState}}</p> -->
             </div>
+        </div>
+    </div>
          <!-- </div> -->
     <!-- </div>
     <br>
@@ -65,25 +86,40 @@
           margin: 10px auto; 
         }
     </style>
+
     <!-- Display more information only when main menus are created -->
     <div ng-show="stateflag">
         <table  width="80%" >     
         <thead style="text-align:center">           
             <tr>
-                <th>Issuer ID</th>
-                <th>Network Name</th>
-                <th>Get more Info</th>
+                <th>Rank</th>
+                <th>Nursing Home Staff</th>
+                <th>Annual Healthcare Premium</th>
+                <th>Child Immunization</th>
+                <th>Doctor Staff</th>
+                <th>Health Insurance Coverage</th>
+                <th>In Patient Expense</th>
+                <th>Infant Survival</th>
+                <th>Self Reported Health Status</th>
             </tr>
         </thead>
         <tbody  style="text-align:center">
-            <tr data-ng-repeat="data in q1">
-                <td style="width:30%"><a href="">{{ data.IssuerId}}</a></td>
-                <td style="width:70%">{{ data.NetworkName}}</td>
-                <td><input type="button" value="Get Details" ng-click="GetDetails_Issuer($index)" ng-model="selectedIssuerID" ng-change="GetDetails_Issuer($index)"/></td>
-                <!-- <td style="width:70%">{{ data.neturl}}</td> -->
+            <tr data-ng-repeat="data in states_info">
+                <td style="width:30%">{{ data.Ranks}}</a></td>
+                <td style="width:70%">{{ data.NursingHomeStaff}}</td>
+                <td style="width:70%">{{ data.AnnualHealthcarePremium}}</td>
+                <td style="width:70%">{{ data.ChildImmunization}}</td>
+                <td style="width:70%">{{ data.DoctorStaff}}</td>
+                <td style="width:70%">{{ data.HealthInsuranceCoverage}}</td>
+                <td style="width:70%">{{ data.InPatientExpense}}</td>
+                <td style="width:70%">{{ data.InfantSurvival}}</td>
+                <td style="width:70%">{{ data.SelfreportedHealthStatus}}</td>
             </tr>
         </tbody>
         </table>
+        <br>
+    </div>
+        <div id = "container_map" style="width: 100%; height: 700px;"></div>
 
    
 
