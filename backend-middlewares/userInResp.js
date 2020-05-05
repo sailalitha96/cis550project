@@ -32,12 +32,7 @@ module.exports = function () {
     return function (req, res, next) {
       // console.log("in middleware");
       res.locals.user = req.user;
-      // add stuff to a nosql database 
-      // var current_date = new Date();
-      // var date_time = current_date.getTime().toString();
-      // console.log(res.locals.user);
-      // put_items(res.locals.user);
-      // fn(res.locals.user);
+      
       next();
    
 }};

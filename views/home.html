@@ -21,16 +21,29 @@
   <link href="https://playground.anychart.com/geodata/countries/United_States_Of_America/iframe" rel="canonical">
   <meta content="Choropleth Map,Geo Chart,Geo Visualization" name="keywords">
   <meta content="AnyChart - JavaScript Charts designed to be embedded and integrated" name="description">
+  <script src="https://cdn.anychart.com/releases/v8/themes/dark_earth.min.js"></script>
+  <script src="https://cdn.anychart.com/geodata/2.0.0/countries/united_states_of_america/united_states_of_america.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js?hcode=c11e6e3cfefb406e8ce8d99fa8368d33"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js?hcode=c11e6e3cfefb406e8ce8d99fa8368d33"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js?hcode=c11e6e3cfefb406e8ce8d99fa8368d33"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-map.min.js?hcode=c11e6e3cfefb406e8ce8d99fa8368d33"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-data-adapter.min.js?hcode=c11e6e3cfefb406e8ce8d99fa8368d33"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/themes/dark_earth.min.js"></script>
+  <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css?hcode=c11e6e3cfefb406e8ce8d99fa8368d33" type="text/css" rel="stylesheet">
+  <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css?hcode=c11e6e3cfefb406e8ce8d99fa8368d33" type="text/css" rel="stylesheet">
+  <script src="https://cdn.anychart.com/themes/2.0.0/dark_blue.min.js"></script>
+
 
 </head>
 
 <style>
   .dark-theme {
     color: white;
-    background:   gray;
+    background:darkcyan;
 }
 </style>
-<body ng-app="Healthcare" style="background-color: black;">
+<body ng-app="Healthcare" style="background-color:rgba(35, 57, 59)">
 
 
   <!-- Start your project here-->
@@ -52,13 +65,37 @@
 <br>
 <br>
 <br>
+<style>
+  .containercentermap {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 1.25rem;
+      /* background: #f0e68c; */
+  }
+  .card-img-top {
+    width: 100%;
+    height: 50px;
+    object-fit: cover;
+}
+
+
+
+</style>
 <script src="javascripts/js/proj4.js"></script>
   <script src="javascripts/js/anychart-base.min.js"></script>
   <script src="javascripts/js/anychart-map.min.js"></script>
   <script src="javascripts/js/anychart-exports.min.js"></script>
   <script src="javascripts/js/anychart-ui.min.js"></script>
   <script src="javascripts/js/united_states_of_america.js"></script>
-<div id="container_map" style="width: 100%; height: 700px;"></div>
+  <script src="https://cdn.anychart.com/themes/2.0.0/dark_earth.min.js"></script>
+
+  <script>anychart.onDocumentReady(function () {
+    // set chart theme
+  anychart.theme('darkEarth')});</script>
+
+<!-- <div class = "containercentermap" style= "text-align: center;"> -->
+  <!-- <div id="container_map" style="width: 700px; height: 600px; text-align: center;"></div></div> -->
 <br>
 
   <!-- Main Contents Starts -->
@@ -67,18 +104,69 @@
     <div class="row"><br></div>
     <!-- Grid row -->
     <div class="row">
+        <div class= "col" style ="height: 60%; " >
+            <div class ="row" style="margin-left:120px ">
+                <div id="barchartsaving" style="width: 400px; height: 250px; text-align: center;"></div>
+            </div>
+        <!-- first two graphs  -->
+            <div class="row">
+              <br>
+              <!-- <br> -->
+            </div>
+            <div class ="row" style="margin-left:120px;">
+              <div id="homepiechart" style="width: 400px; height: 250px; text-align: center;"></div>
+            </div>
+        </div>
+        <div class= "col-5" style ="height: 60%;">
+              <div class = "card" style="width: 910px; height: 550px; text-align: center;margin-right:5px;margin-left:5px ;">
+                  <div id="container_map" style="width: 910px; height: 550px; text-align: center;"></div>
+              </div>
+        </div>
+        <div class = "col" style= "width:0.5% ;margin: auto 0;"></div>
+        <div class= "col" style ="height: 60%;" >
+          <div class ="row">
+            <div class="card " style="color: rgb(198, 78, 78); width:400px ;margin: auto 0;height: 250px; background-image: linear-gradient(rgba(36, 34, 31), rgba(20, 43, 20) )">
+              <!-- <img class="card-img-top" src="/images/crown.jpg" alt="Card image"> -->
+              <!-- <div class="card-img-top"> -->
+                <h5 class="card-title" style="text-align: center;">Top 5 Networks in the US</h5>
+                <div class ="card-text" style="font-size: 9;text-align: center;">
+                <p>Ambetter from MHS (0.9915)</p>
+                <p>FHCP HMO Network (0.9768)</p>
+                <p>BlueCare (0.9703)</p>
+                <p>Heritage and Dental Choice (0.9661)</p>
+                <p>IND EPO Partner w/Dominion PEDS PPO (0.9621)</p></div>
+            </div>
+          </div>
+          <div class ="row" style="padding-right:30px ;">
+              <div id="barchartcovid" style="width: 400px; height: 250px; text-align: center;"></div>
+          </div> 
+          
 
-    <div class="card bg-dark text-center">
-      <img class="card-img" src="/images/private_healthcare.jpg" alt="Card image">
-      <div class="card-img-overlay">
-        <h1 class="card-title">Network Plans Statistics</h1>
-        <p class="card-text blue-text">Explore different plans available to you suited to your individual needs and demographics.</p>
-        <a href="/network" class="btn btn-outline-white btn-md waves-effect">Find Available Plans!</a>
-      </div>
+        </div>
+      <br>
+      <br>
+    <div class ="row">
+      <div class= "col-sm-6" style ="height: 60%;">
+          <div class="card bg-dark text-center" >
+          <img class="card-img" src="/images/private_healthcare.jpg" alt="Card image">
+          <div class="card-img-overlay">
+            <h1 class="card-title">Network Plans Statistics</h1>
+            <p class="card-text blue-text">Explore different plans available to you suited to your individual needs and demographics.</p>
+            <a href="/network" class="btn btn-outline-white btn-md waves-effect">Find Available Plans!</a>
+          </div>
+        </div></div>
+        <div class ="col-sm-6" style ="height: 60%;">
+          <div class="card bg-dark text-center">
+            <img class="card-img" src="/images/dental-health-insurance.jpg" alt="Card image">
+            <div class="card-img-overlay">
+              <h1 class="card-title">Dental Plans Statistics</h1>
+              <p class="card-text blue-text">Explore different dental plans available to you suited to your individual needs and demographics.</p>
+              <a href="/dental" class="btn btn-outline-white btn-md waves-effect">Find Available Plans!</a>
+            </div>
+          </div></div>
     </div>
-    </div>
-    <div class="row">
-      <p></p>
+    <!-- <div class="row">
+      <p></p> -->
     </div>
     <div class="row">
 
@@ -90,14 +178,7 @@
       </style>
       
         
-      <div class="card bg-dark text-center">
-      <img class="card-img" src="/images/dental-health-insurance.jpg" alt="Card image">
-      <div class="card-img-overlay">
-        <h1 class="card-title">Dental Plans Statistics</h1>
-        <p class="card-text blue-text">Explore different dental plans available to you suited to your individual needs and demographics.</p>
-        <a href="/dental" class="btn btn-outline-white btn-md waves-effect">Find Available Plans!</a>
-      </div>
-    </div>
+      
     </div>
   </main>
   <!--  Main Contents Ends -->

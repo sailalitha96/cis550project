@@ -68,25 +68,11 @@ app.factory('nationalService',function($http){
             return response.data;
         });
     };
-//     var productList = [];
-//     var laststate = "";
 
-//   var addState = function(newObj) {
-//       productList.push(newObj);
-//       laststate = newObj;
-//       console.log(laststate);
-//   };
-
-//   var getState = function(){
-//     console.log(productList);
-//       return productList;
-//   };
 
     return {
-    //    addState:addState, 
-    //    getState:getState,
-    statelist:statelist,
-    //    networkList:networkList,
+  
+       statelist:statelist,
        agelist:agelist,
        ser_stateinfo:ser_stateinfo,
        service_avgrateperid:service_avgrateperid,

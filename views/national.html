@@ -37,6 +37,11 @@
       <script src="javascripts/js/united_states_of_america.js"></script>
       <script src="../dist/anychart-angularjs.min.js"></script>
       <script src='https://d3js.org/d3.v4.min.js'></script> 
+      <script src="https://cdn.anychart.com/themes/2.0.0/dark_earth.min.js"></script>
+
+  <script>anychart.onDocumentReady(function () {
+    // set chart theme
+  anychart.theme('darkEarth')});</script>
       <script> 
         function clearcontent(elementID) { 
             document.getElementById(elementID).innerHTML = ""; 
@@ -44,22 +49,49 @@
     </script> 
 
         <!--Main Navigation-->
-    <main ng-controller="nationalController">
+    <main ng-controller="nationalController" style="background-color:rgba(35, 57, 59)">
         <br>
         <br>
         <br>
+        <style>
+        .button {
+        transition-duration: 0.4s;
+        background-color: #008CBA;
+        }
+
+        .button:hover {
+        background-color: #4CAF50; /* Green */
+        color: rgba(44, 58, 136);
+        }
+        </style>
     <!-- <div class="col-lg-3 col-md-12 mb-3"> -->
-        <div class="row">
+        <div class="card" style="background-image: linear-gradient(rgba(77, 126, 93), rgba(9, 61, 9) )">
+            <!-- <img class="card-img" src="/images/private_healthcare.jpg" alt="Card image"> -->
+            <!-- <div class="card-img-overlay"> -->
+              <br>
+              <h1 class="card-title" style="text-align: center">Welcome to the National Statistics Page!</h1>
+              <!-- <h2 class="card-text black-text" style="text-align: center">Network Plans Information</h2> -->
+              <p class="card-text black-text" style="text-align: center">View Nationwide Rankings based on Healthcare Conditions. Select one of the criteria listed below from dropdown.</p>
+              <br>
+              <br>
+              <!-- <a href="/network" class="btn btn-outline-white btn-md waves-effect">Find Available Plans!</a> -->
+            </div>
+            <br>
+            <br>
+        <div class="row" style= "margin-left: 20px;">
           <!-- <div class="col-md-1"></div> -->
-            <div class="col-sm-6">
-                <div class="grey-text" style="margin-left: 20px">Select Criteria</div>
+            <div class="col-2">
+                <div class="row">
+                <div class="grey-text" style="margin-left: 20px"><strong>Select Criteria</strong></div>
                 <div class="dropdown-container">
                     <select class="dropdown text-center" ng-model="selectedCriteria"  ng-change="criteriaSelection()" ng-options="network.Field for network in agelists">
                     <option value=""> {{selectedCriterianame}} </option>  </select> 
-                </div>
+                </div></div>
+            <!-- </div>
+            <div class="col-sm-6"> -->
+                <div class="row">
+                <div class="button" ng-click="reloadfn()" style="border-radius: 5px;" > <strong>Try Another Criteria </strong> </button>
             </div>
-            <div class="col-sm-6">
-                <button ng-click="reloadfn()" > Try Another Criteria </button></div>
             </div>
         </div>
         <!-- <div class="row"></div>
@@ -131,7 +163,33 @@
     
 
             <!-- <div anymap ac-data="mydata" ac-instance="mymap" style="width: 40%; height: 60%"></div> -->
+            <div class= "white-text" style= "color:white ;">
+            <p>This map shows the overall assessment of each state based on the {{selectedCriterianame}}. Hover over the map to view respective rank.</p>
+            </div>
             <div id = "container_map" style="width: 100%; height: 700px;"></div>
+            <style>
+                .mycont{
+                    text-decoration: floralwhite;
+                }
+            </style>
+            <div class= "white-text" style= "color:white ;">
+                    <h2 >The 3 Best States for Healthcare 2019</h2>
+                    <p>Based on average rankings across all eight categories, the following were found to be the ten best states for healthcare</p>
+                    <h3><strong>1. Massachusetts</strong></h3>
+                    <p>In the two years MoneyRates.com has been conducting this study, Massachusetts was found to be the best state for healthcare overall both times.<br>
+
+                        Its greatest strengths were number-one rankings for health insurance coverage and child immunization. Massachusetts also ranked in the top ten in three other categories.<br>
+                        
+                        Apparently, though, good healthcare does not come cheaply: Massachusetts is one of the ten most expensive states for both hospital stays and health insurance premiums.</p>
+                    <h3><strong>2. Connecticut</strong> </h3>
+                    <p>While it didn't top any individual category, Connecticut did well overall by finishing in the top ten in six different categories.<br>
+
+                        Its biggest weakness was being among the ten most expensive states for health insurance.</p>
+                    <h3><strong>3. North Dakota</strong> </h3>
+                        <p>The best category for North Dakota was adequacy of nursing care staffing, for which the state ranked number one.
+
+                            The only category for which it received a rating of less than average was in infant survival, for which it was rated as frail.</p>
+            </div>
         </div>
     </div>
     

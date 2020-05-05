@@ -18,12 +18,20 @@ app.controller('homeController', function($scope, networkService) {
 
 //----------------------------------------------Redirect to page------------------------------------------------
     //$scope.navigateToSport = navigationService.navigateToSport;
+// $scope.anychart.onDocumentReady(function () {
+//     console.log("IN here");
+// 	// set chart theme
+//     anychart.theme("lightBlue");
+// });
 
 $scope.loaddata = function() {
   // create map
+  anychart.theme('darkBlue');
   var map = anychart.map();
-
+  
   // create data set
+
+
   var dataSet = anychart.data.set(
       [{"id":"US.MA","value":0},
       {"id":"US.MN","value":1},
@@ -85,14 +93,19 @@ $scope.loaddata = function() {
   series.geoIdField('id');
 
   // set map color settings
-  series.colorScale(anychart.scales.linearColor('#deebf7', '#3182bd'));
+  series.colorScale(anychart.scales.linearColor('#bf5c4e','#a35a2c', '#c96e06', '#dbaa48', 'beige'));
+
+//   series.background().enabled(true);
   series.hovered().fill('#addd8e');
+  
+//   series.background().fill('#3182bd');
 
   // set geo data, you can find this map in our geo maps collection
   // https://cdn.anychart.com/#maps-collection
   map.geoData(anychart.maps['united_states_of_america']);
 
   //set map container id (div)
+  map.interactivity().zoomOnMouseWheel(true);
   map.container('container_map');
 
   //initiate map drawing
@@ -109,6 +122,142 @@ $scope.loaddata = function() {
       });
 
 };
+
+
 $scope.loaddata();
 
+
+
+// now need to create a bar chart based on highest saving In us 
+$scope.statesavings = function(){
+    console.log("In bar function");
+
+    var colorIndex = 0;
+    var color1 = "#FF0000";
+    // color darken function
+          function colorizer(){
+              
+              var mixColor1 = anychart.color.darken(color1, colorIndex);
+              colorIndex = colorIndex + 0.2;
+              return mixColor1;
+          }
+    
+    // data and fill color settings
+    var data = [
+      {x:"MD" ,value:72403 , fill: (colorizer())},
+      {x:"NJ" ,value:69327, fill: (colorizer())},
+      {x:"MA",value: 68922, fill: (colorizer())},
+      {x:"HI",value:68470, fill: (colorizer())},
+      {x:"AK",value:64252, fill: (colorizer())}];
+
+   
+
+    // create the chart
+    var dataSet = anychart.data.set(data);
+    var chart = anychart.column();
+    var series = chart.column(data);
+    var background = chart.background();
+    background.fill({
+    // set colors position
+    // keys: ["rgba(183, 180, 173)", "rgba(108, 106, 100)"],
+    keys: ["#e8b66b", "rgba(105, 83, 23) "],
+    // set angle of colors drawing
+    angle: -130
+    });
+    // add data
+    //chart.data(data);
+
+    // set the chart title
+    chart.title("Top 5 States with Maximum Medical Savings");
+
+
+    // draw
+    chart.container("barchartsaving");
+    chart.draw();
+
+};
+
+$scope.statesavings();
+
+$scope.homepiechart = function(){
+
+    var colorIndex = 0;
+    var color1 = "#FF0000";
+    // color darken function
+          function colorizer(){
+              
+              var mixColor1 = anychart.color.darken(color1, colorIndex);
+              colorIndex = colorIndex + 0.2;
+              return mixColor1;
+          }
+
+    var data = {
+        header: ["Name", "Number"],
+    rows: [
+        ["Male", 45011.2 ],
+        ["Female", 32176.2],
+        // ["Avg_Coinsurance", $scope.avgrateperid_avgcoins]
+    ]};
+
+    // create the chart
+    var chart = anychart.pie(data);
+    var background = chart.background();
+    // background.fill({
+    // // set colors position
+    // keys: ["rgb(207, 165, 72)", "rgb(239, 138, 138)"],
+    // // set angle of colors drawing
+    // angle: -130
+    // });
+    // add data
+    //chart.data(data);
+    chart.background().enabled(true);
+    chart.background().fill("#ffd54f 0.2");
+    // set the chart title
+    chart.title("Total No of Deaths in US - Based on Gender");
+
+
+    // draw
+    chart.container("homepiechart");
+    chart.draw();
+};
+
+$scope.homepiechart();
+
+$scope.top5covid = function(){
+var colorIndex = 0;
+    var color1 = "#C71585";
+    // color darken function
+          function colorizer(){
+              var mixColor1 = anychart.color.darken(color1, colorIndex);
+              colorIndex = colorIndex + 0.2;
+              return mixColor1;
+          }
+    // data and fill color settings
+    var data = [
+      {x:"NY" ,value:318953 , fill: (colorizer())},
+      {x:"NJ" ,value:128269, fill: (colorizer())},
+      {x:"MA",value: 69087, fill: (colorizer())},
+      {x:"IL",value:63777, fill: (colorizer())},
+      {x:"CA",value:55658, fill: (colorizer())}];
+    // create the chart
+    var dataSet = anychart.data.set(data);
+    var chart = anychart.column();
+    var series = chart.column(data);
+    var background = chart.background();
+    background.fill({
+    // set colors position
+    keys: ["#e8b66b", "rgba(105, 83, 23) "],
+    // set angle of colors drawing
+    angle: -130
+    });
+    // add data
+    //chart.data(data);
+    // set the chart title
+    chart.title("Top 5 States with Maximum COVID Cases");
+    // draw
+    chart.container("barchartcovid");
+    chart.draw();
+};
+
+$scope.top5covid();
 });

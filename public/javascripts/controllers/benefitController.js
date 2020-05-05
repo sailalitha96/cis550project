@@ -111,11 +111,6 @@ app.controller('benefitController', function($scope, networkService,benefitServi
         console.log(benefitname);
 
         var client_obj = benefitService.benefits_client();
-        // const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
-        // const WebSearchAPIClient = require('azure-cognitiveservices-websearch');
-        // let credentials = new CognitiveServicesCredentials('6e21cb64c21c4dc1b3816ab33e024e2b');
-        // let webSearchApiClient = new WebSearchAPIClient(credentials);
-            // <script src="javascripts/services/searchService.js"></script>
         console.log(client_obj);
         // searchService.bingsearch(benefitname,client_obj);
     };

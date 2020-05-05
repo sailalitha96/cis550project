@@ -48,6 +48,13 @@ app.factory('networkService',function($http){
             return response.data;
         });
     };
+
+    var service_outofcountry= function(issuerid, age) {
+        return $http.get(`/network_backend_outofcountry/issuerid/${issuerid}/age/${age}`).then(function(response) {
+            // console.log(response.data);
+            return response.data;
+        });
+    };
 //     var productList = [];
 //     var laststate = "";
 
@@ -71,5 +78,6 @@ app.factory('networkService',function($http){
        service_avgrateperid:service_avgrateperid,
        service_benefitperid:service_benefitperid,
        service_metallevelrate:service_metallevelrate,
+       service_outofcountry:service_outofcountry,
     };
 });

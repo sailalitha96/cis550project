@@ -9,9 +9,10 @@ exports.getList = function(req, res) {
 
   exports.getagedistinct = function(req, res) {
   console.log("getagedistinct");
-  var query = `
-  SELECT DISTINCT(Age) FROM rate WHERE Age != "Family Option";
-  `;  
+  // var query = `
+  // SELECT DISTINCT(Age) FROM rate WHERE Age != "Family Option";
+  // `;  
+  var query = `SELECT * FROM agecolumn;`;
   sql.execute(query, res);
   };
 
@@ -112,11 +113,12 @@ exports.getList = function(req, res) {
     // console.log("getagedistinct");
     var query = `
     WITH R1 AS  (SELECT DISTINCT(planid) AS plans FROM rate  WHERE issuerid = ${issuerid}  AND Age LIKE ${age}  GROUP BY PlanId), 
-R2 AS  (SELECT DISTINCT(R1.plans) as plans,(bcs.BenefitName) AS Benefits FROM bcs  JOIN R1 ON R1.plans = bcs.StandardComponentId) ,
-R3 AS (SELECT DISTINCT(R1.plans) AS plans, pcw.MetalLevel_2018 AS MetalLevel FROM planidcrosswalk pcw JOIN R1 ON pcw.PlanID_2018 = R1.plans)
+    R2 AS  (SELECT DISTINCT(R1.plans) as plans,(bcs.BenefitName) AS Benefits FROM bcs  JOIN R1 ON R1.plans = bcs.StandardComponentId) ,
+    R3 AS (SELECT DISTINCT(R1.plans) AS plans, pcw.MetalLevel_2018 AS MetalLevel FROM planidcrosswalk pcw JOIN R1 ON pcw.PlanID_2018 = R1.plans)
 
-SELECT R2.Benefits FROM R2 JOIN R3 ON R2.Plans = R3.Plans GROUP BY R2.Benefits ORDER BY COUNT(DISTINCT(R3.MetalLevel)) DESC LIMIT 10;
+    SELECT R2.Benefits FROM R2 JOIN R3 ON R2.Plans = R3.Plans GROUP BY R2.Benefits ORDER BY COUNT(DISTINCT(R3.MetalLevel)) DESC LIMIT 10;
     `;  
+    
     sql.execute(query, res);
     };
   
@@ -182,3 +184,35 @@ SELECT R2.Benefits FROM R2 JOIN R3 ON R2.Plans = R3.Plans GROUP BY R2.Benefits O
       // console.log(query);
       sql.execute(query, res);
     };
+
+
+exports.getoutofcountry = function(req, res) {
+
+  var issuerid = req.params.issuerid; 
+  issuerid =  JSON.stringify(issuerid);
+  // issuerid = parseInt(issuerid,10);
+  var age= req.params.age; 
+  age = JSON.stringify(age);
+  // console.log("getagedistinct");
+  var query = `
+  WITH R1 AS
+  (SELECT DISTINCT(PlanId) AS Plan FROM rate WHERE IssuerId = ${issuerid} AND Age LIKE ${age}),
+  R2  AS
+  (SELECT DISTINCT(R1.Plan) as Plan, pcw.MetalLevel_2018 AS MetalLevel FROM planidcrosswalk pcw JOIN R1
+  ON pcw.PlanID_2018 = R1.Plan),
+  R3 AS
+  (SELECT r.MetalLevel as MetalLevel,Count(p.OutOfServiceAreaCoverage) as AreaCoverage, Count(OutOfCountryCoverage) AS CountryCoverage  , Count(DISTINCT(StandardComponentId)) as plans ,Count(DISTINCT(PlanId)) as num_var
+   FROM attributes p JOIN R2  r ON p.StandardComponentId = r.Plan  AND p.OutOfServiceAreaCoverage LIKE '%Yes%'
+  AND p.OutOfCountryCoverage LIKE '%Yes%'
+  GROUP by r.MetalLevel),
+  R4 AS
+  (Select Count(R2.Plan) as num_plans, R2.Metallevel
+  FROM R2
+  GROUP BY R2.MetalLevel )
+  SELECT DISTINCT R4.MetalLevel,
+  COALESCE(ROUND(R3.plans/(R4.num_plans),2),0) AS AreaandCountryCoverage
+  FROM R3 RIGHT OUTER JOIN R4 ON R3.MetalLevel = R4.MetalLevel;
+  `;  
+  
+  sql.execute(query, res);
+  };

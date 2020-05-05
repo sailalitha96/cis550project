@@ -13,9 +13,6 @@ var benefitController = require('../backend-controllers/benefit.js');
 var nationalController = require('../backend-controllers/national.js');
 
 
-
-
-
 /* ----------------------------------------------------Load HTML pages ----------------------------------------------------*/
 //Note: Add authController.secured is a miidle ware. Add it to pages which you want to
 //provide access only when a user is logged in.
@@ -47,6 +44,8 @@ router.get('/network_backend_q1/state/', networkController.q1list);
 router.get('/network_backend_avgrate/issuerid/:issuerid/age/:age', networkController.getAvgratescopay);
 router.get('/network_backend_benefitname/issuerid/:issuerid/age/:age', networkController.getbenefitname);
 router.get('/network_backend_metalrate/issuerid/:issuerid/age/:age', networkController.getmetallevelrates);
+router.get('/network_backend_outofcountry/issuerid/:issuerid/age/:age', networkController.getoutofcountry);
+
 
 /* ------------------------------------------------------ Dental ------------------------------------------------------*/
 
@@ -70,15 +69,6 @@ router.get('/national_backend_rankings/',nationalController.nat_getList);
 router.get('/national_backend_stateinfo/state/',nationalController.nat_stateinfo);
 router.get('/national_backend_columns/columns',nationalController.nat_columns);
 router.get('/national_backend_mapdata/crit/',nationalController.nat_mapdata);
-
-
-
-
-
-
-
-
-
 
 
 

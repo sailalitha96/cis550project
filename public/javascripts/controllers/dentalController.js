@@ -6,16 +6,9 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
     $scope.selectedAge = "";
     $scope.selectedIssuerID = "";
     $scope.topNewsLimit = 6;
-    // for the charts 
 
-    // $scope.width = 600;
-    // $scope.height = 400;
-    // $scope.yAxis = "Sales";
-    // $scope.xAxis = "Axis"
-    // $scope.labels = ["Average Preimum " , "Average CoPay", "Average CoInsurance"];
     //----------------------------------------------Get Data From the services(Create chart for countries)------------------------------------------------
 
-    //Get the sport data in the $scope.sport variable
 
     $scope.selectedState = localStorage.getItem('state');
     console.log($scope.selectedState);
@@ -30,7 +23,6 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
 
     // this function provides the benefits given a issuer id and age 
     $scope.cont_benefitperid = function(){dentalService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.benefitperid = data;});};
-    // $scope.cont_metallevelrate =  function(){dentalService.service_metallevelrate($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.metallevelrate = data;console.log("I got binded", $scope.metallevelrate);});};
 
 //----------------------------------------------Get Data From the services------------------------------------------------
     $scope.networkSelection = function(){
@@ -38,8 +30,8 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
  
         $scope.query1();
         $scope.stateflag= true;
-        // console.log($scope.q1);
     };
+
     $scope.ageSelection = function(){
         // function records the selectedAge value(gloabl) within this controller 
         console.log($scope.selectedState);
@@ -54,11 +46,9 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
 
         $scope.selectedIssuerID = $scope.q1[index].IssuerId;
         $scope.networknameselected = $scope.q1[index].NetworkName;
-        // console.log( $scope.selectedIssuerID)
         $scope.issuerflag= true;
-        // $scope.cont_avgrateperid($scope.avgrateperid);
 
-        
+        // async function waits for the getting Avg estimated rates. 
         var fn = await (dentalService.service_avgrateperid($scope.selectedIssuerID,$scope.selectedAge.Age).then(function(data){$scope.avgrateperid = data;}));
         
         $scope.$apply(function(){$scope.copyavgrateperid = $scope.avgrateperid
@@ -72,11 +62,11 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
         if($scope.avgrateperid[0].Avg_Coinsurance == 0){$scope.avgrateperid[0].Avg_Coinsurance = "Information not available";
         }else{$scope.avgrateperid_avgcoins = $scope.avgrateperid.Avg_Coinsurance;}
     });
-        // $scope.cont_benefitperid();
 
     };
 
     $scope.GotoBenefits = function(index){
+        // redirects to benefit page
         localStorage.setItem('issuerid', $scope.q1[index].IssuerId);
         window.open("/benefit");
     };
@@ -99,14 +89,8 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
         // feed data in the card display first and then add a function within the calls 
         console.log($scope.selectedIssuerID,$scope.selectedAge.Age)
         
-        // $scope.cont_metallevelrate();
-        // $scope.feeddata();
+        // we wait for the metallevel data to be completed in a async function
         var finish_metallevel = await ($scope.feeddata());
-
-        // lets display news 
-
-        newsService.topSportsNews($scope.selectedState,"Dental HealthCare",$scope.topNewsLimit).then(function(data){$scope.topNews= data;});
-
 
         // $scope.carddisplay();
 
@@ -116,9 +100,8 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
             // handles the structure of the graph and the data passed through it 
 
             // debug statements
-            console.log("In createPieChart");
-            console.log( $scope.avgrateperid_avgcopay)
-
+            // console.log("In createPieChart");
+            // console.log( $scope.avgrateperid_avgcopay)
             //defintition of graph 
             var data = {
                 header: ["Name", "Number"],
@@ -127,17 +110,10 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
                 ["Avg_Copay", $scope.avgrateperid_avgcopay ],
                 ["Avg_Coinsurance", $scope.avgrateperid_avgcoins]
             ]};
-
             // create the chart
             var chart = anychart.pie(data);
-
-            // add data
-            //chart.data(data);
-
             // set the chart title
             chart.title("Data Visualization");
-
-
             // draw
             chart.container("piechartrates");
             chart.draw();
@@ -166,15 +142,8 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
             metaldata[key]['color'] = colorpalet[metaldata[key].MetalLevel];
             count = count+1;
             
-            // tmp['premium'] = metaldata[key].premium;
-            // tmp['avgcopay1'] = metaldata[key].AvgCopayInTier1;
-            // tmp['avgcopaynet']= metaldata[key].AvgCopayOutofNet;
-            // tmp['avgcoins1']= metaldata[key].AvgCoinsInTier1;
-            // tmp['avgcoinsnet']= metaldata[key].AvgCoinsOutofNet;
-            // carddata.push(tmp);
         }
-        // // console.log(metaldata);
-        // console.log(carddata)
+    
 
         $scope.$apply(function() {
             console.log("I went into apply function");
@@ -206,83 +175,16 @@ app.controller('dentalController', function($scope, dentalService,newsService) {
         //chart.data(data);
         chart.radius('43%')
         chart.innerRadius('30%');
-        //set chart radius
-        // create empty area in pie chart
         
         // set the chart title
         chart.title("Rates Visualization");
 
 
         // draw
-        // chart.container("donughtchartrates");
         chart.container("donughtchartrates".concat(value.MetalLevel));
 
         chart.draw();
 
     };
-    // $scope.carddisplay= function() {
-            //     $scope.sensorList = [{
-            //     hour: 12,
-            //     color: 'red'
-            //     }, {
-            //     hour: 12,
-            //     color: 'green'
-            //     }, {
-            //     hour: 12,
-            //     color: '#a3a3a3'
-            //     }, {
-            //     hour: 5,
-            //     color: 'purple'
-            //     }, {
-            //     hour: 2,
-            //     color: '#b68585'
-            //     }, {
-            //     hour: 12,
-            //     color: '#d2d2d2'
-            //     }, {
-            //     hour: 12,
-            //     color: '#c77cdf'
-            //     // }, {
-            //     // hour: 3,
-            //     // color: '#b68585'
-            //     // }, {
-            //     // hour: 14,
-            //     // color: 'yellow'
-            //     // }, {
-            //     // hour: 4,
-            //     // color: 'blue'
-            //     // }, {
-            //     // hour: 7,
-            //     // color: '#aeaeae'
-            //     // }, {
-            //     // hour: 12,
-            //     // color: '#d4d6d7'
-            //     }];
-            // }
-////////////////////////////////if needed use these//////////////////////////////////////
-       
-    // $scope.q1Selection = function(){
-    // 	$scope.query1();
-    //     console.log($scope.q1);
-    //     $scope.cont_avgrateperid();
-    //     console.log($scope.avgrateperid);
-    // };
-
-    // $scope.cont_avgrateperidSelection = function(){
-    //     // $scope.issuerflag= true;
-
-    //     // console.log($scope.selectedIssuerID.IssuerId);
-    //     $scope.cont_avgrateperid();
-
-    //     // $scope.chart1data = [$scope.avgrateperid.Avg_Premium, $scope.avgrateperid.Avg_Copay,$scope.avgrateperid.Avg_Coinsurance];
-    //     $scope.cont_benefitperid();
-    //     // console.log($scope.avgrateperid);
-    //     if (typeof $scope.avgrateperid !== 'undefined')
-    //         {$scope.chart1data = [$scope.avgrateperid.Avg_Premium, $scope.avgrateperid.Avg_Copay,$scope.avgrateperid.Avg_Coinsurance];}
-    //     else
-        
-    //         {$scope.chart1data = [10, 35,45];}
-    //     console.log($scope.chart1data);
-    //     };
-
+  
 });
