@@ -1,5 +1,5 @@
 // const searchGoogle = require('./searchGoogle');
-app.controller('benefitController', function($scope, networkService,benefitService) {
+app.controller('benefitController', function($scope, networkService,benefitService, newsService) {
 
     //----------------------------------------------Page view configurations------------------------------------------------
   
@@ -36,11 +36,26 @@ app.controller('benefitController', function($scope, networkService,benefitServi
     // this function provides the benefits given a issuer id and age 
     $scope.cont_benefitperid = function(){benefitService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge).then(function(data){$scope.benefitperid = data;});};
 
-    if($scope.selectedIssuerIdflag && $scope.selectedageflag)
+    var initialBenefit = async function(){
+        var benefitsname = {}
+
+        var fn = await(benefitService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge).then(function(data){benefitsname = data;}));
+
+        for (var key in benefitsname){
+            benefitsname[key]["color"] = '#'.concat((Math.random()*0xFFFFFF<<0).toString(16));
+            }
+        $scope.$apply(function(){$scope.benefitperid = benefitsname;});
+        
+        console.log($scope.benefitperid);
+    };
+
+    if($scope.selectedIssuerIdflag)
     {
         console.log($scope.selectedAge)
         $scope.cont_benefitperid();
-    }
+        console.log("I went into apply function");
+        initialBenefit();
+    };
 
     $scope.selectedAgeflag = false;
     $scope.selectedIssuerIdflag= false;
@@ -56,8 +71,15 @@ app.controller('benefitController', function($scope, networkService,benefitServi
         var fn = await (benefitService.service_benefitperid($scope.selectedIssuerID,$scope.selectedAge).then(function(data){benefitsname = data;}));
 
         $scope.$apply(function() {
+            //console.log("I went into apply function");
+            //$scope.benefitperid = benefitsname;
             console.log("I went into apply function");
-            $scope.benefitperid = benefitsname;});
+            for (var key in benefitsname){
+                benefitsname[key]["color"] = '#'.concat((Math.random()*0xFFFFFF<<0).toString(16));
+            }
+            $scope.benefitperid = benefitsname;
+            console.log($scope.benefitperid);
+        });
 
     
     };
@@ -74,7 +96,12 @@ app.controller('benefitController', function($scope, networkService,benefitServi
 
         $scope.$apply(function() {
             console.log("I went into apply function");
-            $scope.benefitperid = benefitsname;});
+            for (var key in benefitsname){
+                benefitsname[key]["color"] = '#'.concat((Math.random()*0xFFFFFF<<0).toString(16));
+            }
+            $scope.benefitperid = benefitsname;
+            console.log($scope.benefitperid);
+        });
 
 
 
@@ -91,5 +118,11 @@ app.controller('benefitController', function($scope, networkService,benefitServi
             // <script src="javascripts/services/searchService.js"></script>
         console.log(client_obj);
         // searchService.bingsearch(benefitname,client_obj);
-        }
+    };
+
+    $scope.Get_News = function(value){
+        console.log(value);
+        newsService.topBenefitNews(value,6).then(function(data){$scope.topNews= data;});
+
+    };
 });
