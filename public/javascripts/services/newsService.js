@@ -80,9 +80,30 @@ var topSportsNews = function (state, string_words,limit) {
         return newsList;
     });
 };
+var topBenefitNews = function (value,limit) {
+    var query_string = value.concat(" Healthcare Coverage");
+    //var query_string = query_string.concat(string_words);
+    url = `https://newsapi.org/v2/everything?q=${query_string} &sortBy=relevance&apiKey=5c4aad7679184604bff739892b078d65`;
+    console.log(url);
+    return $http.get(url).then(function (response) {
+        console.log(response.data.articles);
+        var newsList = [];
+        for (var index =0 ;index<response.data.articles.length;index++){
+            news = response.data.articles[index];
+            if(news.urlToImage){
+                newsList.push(news);
+            }
+            if(newsList.length==limit){
+                return newsList;
+            }
+        }
+        return newsList;
+    });
+};
 
 return {
 
-    topSportsNews: topSportsNews
+    topSportsNews: topSportsNews,
+    topBenefitNews: topBenefitNews
 };
 });
