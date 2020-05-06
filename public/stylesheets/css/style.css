@@ -1,0 +1,21 @@
+.view_homePage {
+    background: url("/images/home_background.jpg")no-repeat center center;
+    background-size: cover;
+    height: 600px;
+    overflow: visible;
+    margin-top: 60px;
+    min-width: 768px;
+}
+
+.view_quizPage {
+    background: url("/images/quiz_background.jpg")no-repeat center center;
+    background-size: cover;
+    height: 800px;
+    overflow: visible;
+    margin-top: 60px;
+    min-width: 768px;
+}
+
+.margin_top_forQuiz{
+    margin-top: 400px;
+}

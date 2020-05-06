@@ -1,0 +1,38 @@
+.dropdown-container {
+  height: 30px;
+  overflow: hidden;
+  width: 200px;
+  background-color: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  outline: none;
+  border: 3px solid #bbb;
+  margin-top: 10px;
+  margin-bottom: 100px;
+}
+
+.dropdown-container .dropdown {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  height: 30px;
+  padding: 5px;
+  cursor: pointer;
+  width: 268px;
+  outline: none;
+}
+
+.submit-btn {
+  margin-left: 50px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  padding: 2px 16px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  outline: none;
+  background: #bd54a4;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
