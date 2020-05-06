@@ -8,13 +8,7 @@ app.controller('benefitController', function($scope, networkService,benefitServi
     $scope.selectedIssuerID = "";
     $scope.topNewsLimit = 6;
 
-    // for the charts 
-
-    // $scope.width = 600;
-    // $scope.height = 400;
-    // $scope.yAxis = "Sales";
-    // $scope.xAxis = "Axis"
-    // $scope.labels = ["Average Preimum " , "Average CoPay", "Average CoInsurance"];
+   
     //----------------------------------------------Get Data From the services(Create chart for countries)------------------------------------------------
 
     //Get the sport data in the $scope.sport variable
