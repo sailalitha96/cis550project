@@ -3,11 +3,11 @@ var mysql = require('mysql');
 //local mysql db connection
 var connection  = mysql.createPool({
   connectionLimit : 10,
-  host     : 'mysqlproj550.cuhkpgkrgsey.us-east-1.rds.amazonaws.com',
+  host     : 'endpointforaws',
   port     :  3306,
-  user     : 'masteruserame',
-  password : 'rutuja123',
-  database : 'mysql_proj550'
+  user     : '<YOUR USERNAME>',
+  password : '<YOUR PASSWORD>',
+  database : '<YOUR DATABASE>'
 });
 
 
