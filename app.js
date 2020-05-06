@@ -62,7 +62,7 @@ app.use(userInResp());
 
 // config express-session
 var sess = {
-  secret: 'CHANGE THIS SECRET',
+  secret: '<YOUR SECRET>',
   cookie: {},
   resave: false,
   saveUninitialized: true

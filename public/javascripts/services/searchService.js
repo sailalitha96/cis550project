@@ -3,10 +3,7 @@ app.factory('searchService',function($http){
 
     
     var bingsearch = function (querybenefit,webSearchApiClient) {
-        // const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
-        // const WebSearchAPIClient = require('azure-cognitiveservices-websearch');
-        // let credentials = new CognitiveServicesCredentials('6e21cb64c21c4dc1b3816ab33e024e2b');
-        // let webSearchApiClient = new WebSearchAPIClient(credentials);
+      
     
         console.log("i got to search");
         webSearchApiClient.web.search(querybenefit).then((result) => {
