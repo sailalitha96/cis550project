@@ -63,7 +63,7 @@ var topSportsNews = function (state, string_words,limit) {
     var val_state= state_dict[state];
     var query_string = val_state.concat(" ");
     var query_string = query_string.concat(string_words);
-    url = `https://newsapi.org/v2/everything?q=${query_string} &sortBy=relevance&apiKey=5c4aad7679184604bff739892b078d65`;
+    url = `https://newsapi.org/v2/everything?q=${query_string} &sortBy=relevance&apiKey=<key>`;
     console.log(url);
     return $http.get(url).then(function (response) {
         console.log(response.data.articles);
@@ -83,7 +83,7 @@ var topSportsNews = function (state, string_words,limit) {
 var topBenefitNews = function (value,limit) {
     var query_string = value.concat(" Healthcare Coverage");
     //var query_string = query_string.concat(string_words);
-    url = `https://newsapi.org/v2/everything?q=${query_string} &sortBy=relevance&apiKey=5c4aad7679184604bff739892b078d65`;
+    url = `https://newsapi.org/v2/everything?q=${query_string} &sortBy=relevance&apiKey=<<key>`;
     console.log(url);
     return $http.get(url).then(function (response) {
         console.log(response.data.articles);
