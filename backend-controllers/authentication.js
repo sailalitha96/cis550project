@@ -55,15 +55,18 @@ exports.secured = function (req, res, next) {
 exports.userInfo = function(req,res,next){
   // no sql db created and statement added
   // console.log("In auth 0");
-  // console.log(req.user);
+  var variable ="false";
+  if(req.user._json['email_verified']){
+    var variable= "success";
+  }
   MongoClient.connect("mongodb://localhost:27017", function (err, client) {
     var db = client.db('Userinformation');
-    db.collection('login_Information', function (err, collection) {
+    db.collection('userlogin_Information', function (err, collection) {
         var newDate = new Date();
         var tme = newDate.toLocaleTimeString();
         tme = tme.concat(req.user.emails[0]['value'])
         // var datetime = newDate.timeNow();
-        collection.insertOne({ user_loginsuccess: req.user.email_verified,user_iden: tme,user_name:req.user.nickname , user_emailid: req.user.emails[0]['value'] , user_id: req.user.user_id});
+        collection.insertOne({ user_loginsuccess: variable,user_iden: tme,user_name:req.user.nickname , user_emailid: req.user.emails[0]['value'] , user_id: req.user.user_id});
 
     });
   })
