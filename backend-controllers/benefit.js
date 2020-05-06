@@ -1,13 +1,6 @@
 var sql = require('../db.js');
 
-// const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
-// const WebSearchAPIClient = require('azure-cognitiveservices-websearch');
 
-exports.getclient = function(req, res){
-    let credentials = new CognitiveServicesCredentials('6e21cb64c21c4dc1b3816ab33e024e2b');
-    let webSearchApiClient = new WebSearchAPIClient(credentials);
-    // return webSearchApiClient;
-};
 
 exports.getbenefitname = function(req, res) {
 
